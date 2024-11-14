@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\SignIn;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
     
+    // Display Log In Page Function
     public function signIn() {
         return view('auth.signin');
     }
 
+    // Log In function
     public function login(Request $request) {
         $request -> validate([
             'email' => 'required|email',
@@ -29,6 +32,14 @@ class AuthController extends Controller
             } 
         } else {
             return back() -> with('fail', 'You do not access to this portal!!');
+        }
+    }
+
+    // Log out Function
+    public function logout() {
+        if(Session::has('loginId')) {
+            Session::pull('loginId');
+            return redirect('/');
         }
     }
 }
