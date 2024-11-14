@@ -17,4 +17,7 @@ Route::post('/forms', [MainController::class, 'postForm']) -> name('forms');
 
 Route::get('/officers', [MainController::class, 'officer']) -> name('officers');
 
+Route::get('/view/{id}', [MainController::class, 'viewOfficer']) -> name('view');
+
+
 

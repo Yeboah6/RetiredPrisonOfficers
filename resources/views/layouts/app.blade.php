@@ -11,11 +11,11 @@
     <meta name="keywords" content="">
     <meta name="author" content="Phoenixcoded" />
     <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
 
-    <link rel="stylesheet" href="assets/css/plugins/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../assets/css/plugins/dataTables.bootstrap4.min.css">
     <!-- vendor css -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     
     
 
@@ -25,16 +25,16 @@
     @yield('content')
 
 
-    <script src="assets/js/vendor-all.min.js"></script>
-    <script src="assets/js/plugins/bootstrap.min.js"></script>
-    <script src="assets/js/ripple.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
+    <script src="../assets/js/vendor-all.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap.min.js"></script>
+    <script src="../assets/js/ripple.js"></script>
+    <script src="../assets/js/pcoded.min.js"></script>
 
-<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
-<script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="../assets/js/plugins/dataTables.bootstrap4.min.js"></script>
 <!-- Apex Chart -->
-<script src="assets/js/plugins/apexcharts.min.js"></script>
-<script src="assets/js/pages/todo.js"></script>
+<script src="../assets/js/plugins/apexcharts.min.js"></script>
+<script src="../assets/js/pages/todo.js"></script>
 
 </body>
 

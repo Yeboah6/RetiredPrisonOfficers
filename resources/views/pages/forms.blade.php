@@ -107,7 +107,7 @@
                 @csrf
 
                 <fieldset id="personal">
-                    {{-- <input type="text" name="applicant_id" hidden> --}}
+                    <input type="text" name="reg_id" hidden>
                     <div class="form-group">
                         <label for="first-name">Full Name <span>*</span></label>
                             <input type="text" name="full_name" placeholder="Enter Full Name"  required>
