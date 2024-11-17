@@ -195,7 +195,7 @@
                         <span class="text-danger">@error('where_to_attend_meeting'){{ $message }} @enderror</span>
                     </div>
                     <div class="form-group">
-                        <label for="full-name">HomeTown <span>*</span></label>
+                        <label for="full-name">Hometown <span>*</span></label>
                         <input type="text" name="hometown" required placeholder="Enter HomeTown">
                         <span class="text-danger">@error('hometown'){{ $message }} @enderror</span>
                     </div>

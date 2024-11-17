@@ -16,11 +16,12 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Membership Dashboard</h5>
+                            {{-- <h5 class="m-b-10">Membership Dashboard</h5> --}}
+                            <br>
                         </div>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#!">Membership</a></li>
+                            {{-- <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li> --}}
+                            {{-- <li class="breadcrumb-item"><a href="#!">Membership</a></li> --}}
                             <li class="breadcrumb-item"><a href="#!">Dashboard</a></li>
                         </ul>
                     </div>
@@ -35,7 +36,7 @@
                 <div class="card bg-c-green text-white widget-visitor-card">
                     <div class="card-body text-center">
                         <h2 class="text-white">18</h2>
-                        <h6 class="text-white">Registered Users</h6>
+                        <h6 class="text-white">Retired Officers</h6>
                         <i class="feather icon-user-plus"></i>
                     </div>
                 </div>
@@ -43,8 +44,8 @@
             <div class="col-sm-3">
                 <div class="card bg-c-green text-white widget-visitor-card">
                     <div class="card-body text-center">
-                        <h2 class="text-white">14</h2>
-                        <h6 class="text-white">Active Users</h6>
+                        <h2 class="text-white">{{$registered}}</h2>
+                        <h6 class="text-white">Registered Officers</h6>
                         <i class="feather icon-user-check"></i>
                     </div>
                 </div>

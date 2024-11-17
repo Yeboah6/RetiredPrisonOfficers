@@ -20,4 +20,11 @@ Route::get('/officers', [MainController::class, 'officer']) -> name('officers');
 Route::get('/view/{id}', [MainController::class, 'viewOfficer']) -> name('view');
 
 
+Route::get('/delete/{id}', [MainController::class, 'deleteOfficer']) -> name('delete');
+
+Route::get('/edit/{id}', [MainController::class, 'editOfficer']) -> name('edit');
+Route::post('/edit/{id}', [MainController::class, 'postEditOfficer']) -> name('edit');
+
+
+
 

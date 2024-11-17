@@ -39,9 +39,12 @@
                         <div class="row align-items-center m-l-0">
                             <div class="col-sm-6">
                             </div>
-                            <div class="col-sm-6 text-right">
-                                <button class="btn btn-success btn-sm btn-round has-ripple" data-toggle="modal" data-target="#modal-report"><i class="feather icon-plus"></i> Add Student</button>
-                            </div>
+                            @if (Session::has('success'))
+                                <div class="alert alert-success">{{ Session::get('success') }}</div>
+                            @endif
+                            @if (Session::has('fail'))
+                                <div class="alert alert-danger">{{ Session::get('fail') }}</div>
+                            @endif
                         </div>
                         <div class="table-responsive">
                             <table id="report-table" class="table table-bordered table-striped mb-0">
@@ -59,10 +62,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    
                                         @foreach ($officers as $officer)
-                                            
-                                        
+                                        <tr>
                                         <td>{{ $officer -> reg_id}}</td>
                                         <td>{{ $officer -> full_name}}</td>
                                         <td>{{ $officer -> telephone}}</td>
@@ -73,11 +75,12 @@
                                         <td style="text-align: center"><span style="background-color: #008B9C;color:#fff;padding:5px;border-radius:50px;font-size:12px;text-align:center">{{ $officer -> status}}</span></td>
                                         <td>
                                             <a href="{{ url ('/view/'.$officer -> id)}}" class="btn btn-success btn-sm">View</a>
-                                            <a href="#!" class="btn btn-info btn-sm">Edit</a>
-                                            <a href="#!" class="btn btn-danger btn-sm">Delete</a>
+                                            <a href="{{ url ('/edit/'.$officer -> id)}}" class="btn btn-info btn-sm">Edit</a>
+                                            <a href="{{ url ('/delete/'.$officer -> id)}}" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
-                                        @endforeach
                                     </tr>
+                                        @endforeach
+                                    
                                 </tbody>
                             </table>
                         </div>
