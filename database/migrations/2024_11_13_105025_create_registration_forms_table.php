@@ -36,11 +36,7 @@ return new class extends Migration
             $table -> string('member_signature') -> nullable();
             $table -> string('status') -> nullable();
 
-            $table -> string('registration_fee') -> nullable();
-            $table -> string('secretary') -> nullable();
-            $table -> string('chairman') -> nullable();
-            $table -> string('treasury') -> nullable();
-            $table -> string('reg_no') -> nullable();
+            $table -> string('branch') -> nullable();
             $table->timestamps();
         });
     }

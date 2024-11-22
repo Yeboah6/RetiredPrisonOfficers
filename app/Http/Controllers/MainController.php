@@ -10,8 +10,11 @@ class MainController extends Controller
     
     // Display Dashboard Page Function
     public function dashboard() {
+        $forms = RegistrationForm::all() -> count();
         $registered = RegistrationForm::where('status', 'Submitted') -> count();
-        return view('pages.dashboard', compact('registered'));
+        $pending = RegistrationForm::where('status', 'Pending') -> count();
+        $approve = RegistrationForm::where('status', 'Approved') -> count();
+        return view('pages.dashboard', compact('forms', 'registered', 'pending', 'approve'));
     }
 
     //Display Form Page Function
@@ -84,6 +87,7 @@ class MainController extends Controller
         return view('pages.edit', compact('editOfficer'));
     }
 
+    // Save Updated Officer Data Function
     public function postEditOfficer(Request $request, $id) {
         $postEditOfficer = RegistrationForm::findOrFail($id);
 
@@ -112,4 +116,40 @@ class MainController extends Controller
 
         return redirect('/officers') -> with('success', 'Data Updated Successfully');
     } 
+
+    public function approveOfficer($id) {
+        $approveOfficer = RegistrationForm::findOrFail($id);
+
+        return view('pages.approve', compact('approveOfficer'));
+    }
+
+    public function postApproveOfficer(Request $request, $id) {
+        $postApproveOfficer = RegistrationForm::findOrFail($id);
+
+        $postApproveOfficer -> full_name = $request -> input('full_name');
+        $postApproveOfficer -> govt_pension_no = $request -> input('govt_pension_no');
+        $postApproveOfficer -> prison_svc_no = $request -> input('prison_svc_no');
+        $postApproveOfficer -> residential_address = $request -> input('residential_address');
+        $postApproveOfficer -> postal_address = $request -> input('postal_address');
+        $postApproveOfficer -> telephone = $request -> input('telephone');
+        $postApproveOfficer -> ghana_card_no = $request -> input('ghana_card_no');
+        $postApproveOfficer -> sex = $request -> input('sex');
+        $postApproveOfficer -> present_age = $request -> input('present_age');
+        $postApproveOfficer -> date_of_enlistment = $request -> input('date_of_enlistment');
+        $postApproveOfficer -> date_of_retirement = $request -> input('date_of_retirement');
+        $postApproveOfficer -> rank_of_retirement = $request -> input('rank_of_retirement');
+        $postApproveOfficer -> station_retired = $request -> input('station_retired');
+        $postApproveOfficer -> where_to_attend_meeting = $request -> input('where_to_attend_meeting');
+        $postApproveOfficer -> hometown = $request -> input('hometown');
+        $postApproveOfficer -> present_place_of_residence = $request -> input('present_place_of_residence');
+        $postApproveOfficer -> present_occupation = $request -> input('present_occupation');
+        $postApproveOfficer -> marital_status = $request -> input('marital_status');
+        $postApproveOfficer -> next_of_kin = $request -> input('next_of_kin');
+        $postApproveOfficer -> member_signature = $request -> input('member_signature');
+        $postApproveOfficer -> status = $request -> input('status');
+
+        $postApproveOfficer -> update();
+
+        return redirect('/officers') -> with('success', 'Officer Approved Successfully');
+    }
 }

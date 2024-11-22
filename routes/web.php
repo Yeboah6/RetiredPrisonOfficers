@@ -26,5 +26,7 @@ Route::get('/edit/{id}', [MainController::class, 'editOfficer']) -> name('edit')
 Route::post('/edit/{id}', [MainController::class, 'postEditOfficer']) -> name('edit');
 
 
+Route::get('/approve/{id}', [MainController::class, 'approveOfficer']) -> name('approve');
+Route::post('/approve/{id}', [MainController::class, 'postApproveOfficer']) -> name('approve');
 
 

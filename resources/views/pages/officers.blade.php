@@ -15,12 +15,12 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Student</h5>
+                            {{-- <h5 class="m-b-10">Student</h5> --}}
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#!">School</a></li>
-                            <li class="breadcrumb-item"><a href="#!">Student</a></li>
+                            {{-- <li class="breadcrumb-item"><a href="#!">School</a></li> --}}
+                            <li class="breadcrumb-item"><a href="#!">Officers</a></li>
                         </ul>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Student List </h5>
+                        <h5>Officers List </h5>
                     </div>
                     <div class="card-body">
                         <div class="row align-items-center m-l-0">
@@ -72,10 +72,18 @@
                                         <td>{{ $officer -> sex}}</td>
                                         <td>{{ $officer -> prison_svc_no}}</td>
                                         <td>{{ $officer -> residential_address}}</td>
-                                        <td style="text-align: center"><span style="background-color: #008B9C;color:#fff;padding:5px;border-radius:50px;font-size:12px;text-align:center">{{ $officer -> status}}</span></td>
+                                        @if ($officer -> status == "Submitted")
+                                            <td style="text-align: center"><span style="background-color: #008B9C;color:#fff;padding:8px;border-radius:50px;font-size:12px;text-align:center">{{ $officer -> status}}</span></td>
+                                        @elseif ($officer -> status == "Pending")
+                                            <td style="text-align: center"><span style="background-color: #fcf04e;color:#000;padding:8px;border-radius:50px;font-size:12px;text-align:center">{{ $officer -> status}}</span></td>
+                                        @elseif ($officer -> status == "Approved")
+                                        <td style="text-align: center"><span style="background-color: #45c739;color:#fff;padding:8px;border-radius:50px;font-size:12px;text-align:center">{{ $officer -> status}}</span></td>
+                                        @endif
+                                        
                                         <td>
-                                            <a href="{{ url ('/view/'.$officer -> id)}}" class="btn btn-success btn-sm">View</a>
+                                            <a href="{{ url ('/view/'.$officer -> id)}}" class="btn btn-warning btn-sm">View</a>
                                             <a href="{{ url ('/edit/'.$officer -> id)}}" class="btn btn-info btn-sm">Edit</a>
+                                            <a href="{{ url ('/approve/'.$officer -> id)}}" class="btn btn-success btn-sm">Approve</a>
                                             <a href="{{ url ('/delete/'.$officer -> id)}}" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>

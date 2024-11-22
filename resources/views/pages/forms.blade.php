@@ -9,29 +9,19 @@
 <style>
 
 .form-title {
-        background-color: #51B3E4;
+        background-color: #461d1dcc;
         color: white;
         padding: 10px;
         border-radius: 4px;
         margin: 20px 0;
         text-align: center;
     }
- /* .application-form {
-        margin-top: 20px;
-    } */
 
  fieldset {
-        border: 1px solid #ccc;
+        border: 1px solid #867e7e;
         padding: 20px;
         border-radius: 4px;
     }
- legend {
-        font-size: 18px;
-        color: white;
-        background-color: #51B3E4;
-        padding: 5px 10px;
-        border-radius: 4px;
-    } 
     .form-group {
         margin-bottom: 15px;
     }
@@ -227,7 +217,7 @@
                 </fieldset>
 
                 <div class="card-footer text-right">
-                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="submit" style="background-color: #a52a2acc;color: #fff" class="btn">Save</button>
                 </div>
             </form>
         </div>
