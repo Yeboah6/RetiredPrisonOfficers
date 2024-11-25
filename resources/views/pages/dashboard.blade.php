@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <div class="card bg-c-blue text-white widget-visitor-card">
+                <div class="card bg-c-green text-white widget-visitor-card" style="background-color:#4680FF;">
                     <div class="card-body text-center">
                         <h2 class="text-white">{{ $registered }}</h2>
                         <h6 class="text-white">Submitted</h6>

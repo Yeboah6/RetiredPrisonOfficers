@@ -134,10 +134,25 @@
                         <input type="text" name="residential_address" required placeholder="Enter Residential Address" value="{{ $approveOfficer -> residential_address}}">
                         <span class="text-danger">@error('residential_address'){{ $message }} @enderror</span>
                     </div>
-                    <div class="form-group">
-                        <label for="nationality">Postal Address <span>*</span></label>
-                        <input type="text" name="postal_address" required placeholder="Enter Postal Address" value="{{ $approveOfficer -> postal_address}}">
-                        <span class="text-danger">@error('postal_address'){{ $message }} @enderror</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nationality">Postal Address <span>*</span></label>
+                                <input type="text" name="postal_address" required placeholder="Enter Postal Address" value="{{ $approveOfficer -> postal_address}}">
+                                <span class="text-danger">@error('postal_address'){{ $message }} @enderror</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nationality">Branch / Region <span>*</span></label>
+                            <select name="branch">
+                                <option selected>{{ $approveOfficer -> branch}} </option>
+                                <option value="Accra">Accra</option>
+                                <option value="Kumasi">Kumasi</option>
+                            </select>
+                            <span class="text-danger">@error('branch'){{ $message }} @enderror</span>
+                        </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="full-name">Telephone <span>*</span></label>

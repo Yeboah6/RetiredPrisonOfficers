@@ -34,6 +34,7 @@ class MainController extends Controller
         $saveOfficers -> prison_svc_no = $request -> input('prison_svc_no');
         $saveOfficers -> residential_address = $request -> input('residential_address');
         $saveOfficers -> postal_address = $request -> input('postal_address');
+        $saveOfficers -> branch = $request -> input('branch');
         $saveOfficers -> telephone = $request -> input('telephone');
         $saveOfficers -> ghana_card_no = $request -> input('ghana_card_no');
         $saveOfficers -> sex = $request -> input('sex');
@@ -96,6 +97,7 @@ class MainController extends Controller
         $postEditOfficer -> prison_svc_no = $request -> input('prison_svc_no');
         $postEditOfficer -> residential_address = $request -> input('residential_address');
         $postEditOfficer -> postal_address = $request -> input('postal_address');
+        $postEditOfficer -> branch = $request -> input('branch');
         $postEditOfficer -> telephone = $request -> input('telephone');
         $postEditOfficer -> ghana_card_no = $request -> input('ghana_card_no');
         $postEditOfficer -> sex = $request -> input('sex');
@@ -123,6 +125,7 @@ class MainController extends Controller
         return view('pages.approve', compact('approveOfficer'));
     }
 
+    // Save Approved Officer Data Function
     public function postApproveOfficer(Request $request, $id) {
         $postApproveOfficer = RegistrationForm::findOrFail($id);
 
@@ -131,6 +134,7 @@ class MainController extends Controller
         $postApproveOfficer -> prison_svc_no = $request -> input('prison_svc_no');
         $postApproveOfficer -> residential_address = $request -> input('residential_address');
         $postApproveOfficer -> postal_address = $request -> input('postal_address');
+        $postApproveOfficer -> branch = $request -> input('branch');
         $postApproveOfficer -> telephone = $request -> input('telephone');
         $postApproveOfficer -> ghana_card_no = $request -> input('ghana_card_no');
         $postApproveOfficer -> sex = $request -> input('sex');

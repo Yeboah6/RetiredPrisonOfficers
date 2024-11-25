@@ -30,21 +30,27 @@
             <div class="container" id="printTable">
                 <div>
                     <div class="card container">
-                        <div class="row invoice-contact" style=" font-size: 1rem;">
+                        <div class="container" style="text-align: center;margin-top: 50px;margin-bottom: 50px;">
+                            <h5>RETIRED PRISON OFFICERS' ASSOCIATION OF GHANA </h5>
+                            <h5>P.O. BOX CT. 10895, CANTONMENTS, ACCRA. </h5>
+                            <h5><a class="text-secondary" href="repoaghana@gmail.com">repoaghana@gmail.com</a> 03 0393 3865</h5>
+                            {{-- <h5> </h5> --}}
+                        </div>
+                        {{-- <div class="row invoice-contact" style=" font-size: 1rem;">
                             <div class="col-md-8">
                                 <div class="invoice-box row">
-                                    <div class="col-sm-12 printStyles" style="text-align:center;">
+                                    <div class="col-sm-12 printStyles" style="position:fixed;left:300px;">
                                         <h5>RETIRED PRISON OFFICERS' ASSOCIATION OF GHANA </h5>
                                         <h5>P.O. BOX CT. 10895, CANTONMENTS, ACCRA. </h5>
-                                        
+                                        <div >
+                                            <h5><a class="text-secondary" href="repoaghana@gmail.com">repoaghana@gmail.com</a> </h5>
+                                            <h5 style="margin-left: 10px">03 0393 3865 </h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div style="display: flex;">
-                            <h5><a class="text-secondary" href="repoaghana@gmail.com">repoaghana@gmail.com</a> </h5>
-                            <h5 style="margin-left: 10px">03 0393 3865 </h5>
-                        </div>
+                        </div> --}}
+                        
                         <h3 style="text-align:center">{{ $viewOfficer -> reg_id }}</h3>
                         <div class="card-body">
                             <div class="row invoive-info">
@@ -95,6 +101,9 @@
                                 </div>
 
                                 <div class="col-md-4 col-xs-12 invoice-client-info">
+                                    <label for="" style="font-weight: bold; font-size:1rem">Branch / Region: </label>
+                                    <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> branch}}</p>
+                                    <br>
                                     <label for="" style="font-weight: bold; font-size:1rem">Hometown: </label>
                                     <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> hometown}}</p>
                                     <br>
