@@ -95,7 +95,9 @@
     <div class="row" style="margin-top: -110px;">
         <div class="col-md-6 offset-md-3">
             <h2 class="form-title">Registration Form</h2>
-
+            <div class="card-footer text-left">
+                <button onclick="history.back()" style="background-color: #a52a2acc;color: #fff" class="btn">Back</button>
+            </div>
             <form action="{{url('/edit/'.$editOfficer -> id)}}" method="POST">
                 @if (Session::has('success'))
 				    	<div class="alert alert-success">{{ Session::get('success') }}</div>
@@ -105,7 +107,6 @@
 				    @endif
 
                 @csrf
-
                 <fieldset id="personal">
                     <input type="text" name="reg_id" hidden>
                     <div class="form-group">

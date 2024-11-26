@@ -226,7 +226,7 @@
                     </div>
                     <div class="form-group">
                         <label for="full-name">Member Signature <span>*</span></label>
-                        <input type="text" name="member_signature" required placeholder="Enter Member Signature">
+                        <input type="text" name="member_signature" required placeholder="Enter Full Name as Signature">
                         <span class="text-danger">@error('member_signature'){{ $message }} @enderror</span>
                     </div>
                 </fieldset>

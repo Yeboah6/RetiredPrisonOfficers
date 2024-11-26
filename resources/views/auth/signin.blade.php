@@ -35,8 +35,8 @@
 			<div class="row align-items-center text-center">
 				<div class="col-md-12">
 					<div class="card-body">
-						<img src="assets/images/logo-dark.png" alt="" class="img-fluid mb-4">
-						<h4 class="mb-3 f-w-400">Log In</h4>
+						{{-- <img src="assets/images/logo-dark.png" alt="" class="img-fluid mb-4"> --}}
+						<h4 class="mb-3 f-w-400">LogIn</h4>
                         <form action="{{ url('/login') }}" method="POST">
                             @if (Session::has('success'))
 							    <div class="alert alert-success">{{ Session::get('success') }}</div>
@@ -54,7 +54,7 @@
 							<label class="floating-label" for="Password">Password</label>
 							<input type="password" name="password" class="form-control" id="Password" placeholder="">
 						</div>
-						<button class="btn btn-block btn-primary mb-4" type="submit">Signin</button>
+						<button class="btn btn-block mb-4" type="submit" style="background-color: #A52A2A;color: #fff">Signin</button>
                     </form>
 					</div>
 				</div>

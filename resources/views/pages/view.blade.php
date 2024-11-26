@@ -30,26 +30,14 @@
             <div class="container" id="printTable">
                 <div>
                     <div class="card container">
+                        <div class="card-footer text-left">
+                            <button onclick="history.back()" style="background-color: #a52a2acc;color: #fff" class="btn">Back</button>
+                        </div>
                         <div class="container" style="text-align: center;margin-top: 50px;margin-bottom: 50px;">
                             <h5>RETIRED PRISON OFFICERS' ASSOCIATION OF GHANA </h5>
                             <h5>P.O. BOX CT. 10895, CANTONMENTS, ACCRA. </h5>
                             <h5><a class="text-secondary" href="repoaghana@gmail.com">repoaghana@gmail.com</a> 03 0393 3865</h5>
-                            {{-- <h5> </h5> --}}
                         </div>
-                        {{-- <div class="row invoice-contact" style=" font-size: 1rem;">
-                            <div class="col-md-8">
-                                <div class="invoice-box row">
-                                    <div class="col-sm-12 printStyles" style="position:fixed;left:300px;">
-                                        <h5>RETIRED PRISON OFFICERS' ASSOCIATION OF GHANA </h5>
-                                        <h5>P.O. BOX CT. 10895, CANTONMENTS, ACCRA. </h5>
-                                        <div >
-                                            <h5><a class="text-secondary" href="repoaghana@gmail.com">repoaghana@gmail.com</a> </h5>
-                                            <h5 style="margin-left: 10px">03 0393 3865 </h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                         
                         <h3 style="text-align:center">{{ $viewOfficer -> reg_id }}</h3>
                         <div class="card-body">
@@ -140,23 +128,6 @@
 <!-- [ Main Content ] end -->
 
 <script src="../assets/js/vendor-all.min.js"></script>
-<script src="../assets/js/plugins/bootstrap.min.js"></script>
-<script src="../assets/js/ripple.js"></script>
-<script src="../assets/js/pcoded.min.js"></script>
-
-{{-- <script>
-    function printData() {
-        var divToPrint = document.getElementById("printTable");
-        newWin = window.open("");
-        newWin.document.write(divToPrint.outerHTML);
-        newWin.print();
-        newWin.close();
-    }
-    $('.btn-print-invoice').on('click', function() {
-        printData();
-    })
-</script> --}}
-
 
 <script>
     function printData() {

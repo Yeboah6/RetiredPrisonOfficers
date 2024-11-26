@@ -3,23 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\RegistrationForm;
+use App\Models\SignIn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class MainController extends Controller
 {
     
     // Display Dashboard Page Function
     public function dashboard() {
+        $data = array();
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
         $forms = RegistrationForm::all() -> count();
         $registered = RegistrationForm::where('status', 'Submitted') -> count();
         $pending = RegistrationForm::where('status', 'Pending') -> count();
         $approve = RegistrationForm::where('status', 'Approved') -> count();
-        return view('pages.dashboard', compact('forms', 'registered', 'pending', 'approve'));
+        return view('pages.dashboard', compact('forms', 'registered', 'pending', 'approve', 'data'));
     }
 
     //Display Form Page Function
     public function form() {
-        return view('pages.forms');
+        $data = array();
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
+        return view('pages.forms', compact('data'));
     }
 
     public function postForm(Request $request) {
@@ -60,16 +70,24 @@ class MainController extends Controller
 
     // View All Officers Page Function
     public function officer() {
+        $data = array();
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
         $officers = RegistrationForm::all();
 
-        return view('pages.officers', compact('officers'));
+        return view('pages.officers', compact('officers', 'data'));
     }
 
     // View Specified Officer Page Function
     public function viewOfficer($id) {
+        $data = array();
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
         $viewOfficer = RegistrationForm::findOrFail($id);
 
-        return view('pages.view', compact('viewOfficer'));
+        return view('pages.view', compact('viewOfficer', 'data'));
     }
 
     // Delete Officers Function
@@ -83,9 +101,13 @@ class MainController extends Controller
 
     // Display Edit Officer Page Function
     public function editOfficer($id) {
+        $data = array();
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
         $editOfficer = RegistrationForm::findOrFail($id);
         
-        return view('pages.edit', compact('editOfficer'));
+        return view('pages.edit', compact('editOfficer', 'data'));
     }
 
     // Save Updated Officer Data Function
@@ -120,9 +142,13 @@ class MainController extends Controller
     } 
 
     public function approveOfficer($id) {
+        $data = array();
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
         $approveOfficer = RegistrationForm::findOrFail($id);
 
-        return view('pages.approve', compact('approveOfficer'));
+        return view('pages.approve', compact('approveOfficer', 'data'));
     }
 
     // Save Approved Officer Data Function
