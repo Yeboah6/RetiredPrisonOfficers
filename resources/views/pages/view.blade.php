@@ -150,14 +150,13 @@
                     position: static;
                     left: 300px;
                 }
-                .text-secondary {
-                    font-size: 1.5rem
-                    position: static;
-                    left: 550px;
-                }
                 .invoive-info{
                     width: 100%;
                     margin-bottom: 20px;
+                    display: flex;
+                }
+                .invoice-client-info {
+                    margin: 20px;
                 }
                 h5 {
                     font-size: 1.2rem;

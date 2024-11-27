@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AuthController::class, 'signIn']);
+Route::get('/', [AuthController::class, 'signIn']) -> middleware('alreadyLoggedIn');
 
 Route::post('/login', [AuthController::class, 'login']) -> name('login');
 

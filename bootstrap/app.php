@@ -13,9 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'isLoggedIn' => \App\Http\Middleware\AuthCheck::class,
-            // 'alreadyLoggedIn' => \App\Http\Middleware\AlreadyLoggedIn::class,
-            // 'applicantAlreadyLoggedIn' => \App\Http\Middleware\ApplicantIsLoggedIn::class,
-            // 'applicantIsLoggedIn' => \App\Http\Middleware\ApplicantAuthCheck::class,
+            'alreadyLoggedIn' => \App\Http\Middleware\AlreadyLoggedIn::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
