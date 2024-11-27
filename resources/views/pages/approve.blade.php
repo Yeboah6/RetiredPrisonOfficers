@@ -96,6 +96,10 @@
         <div class="col-md-6 offset-md-3">
             <h2 class="form-title">Registration Form</h2>
 
+            <div class="card-footer text-left">
+                <button onclick="history.back()" style="background-color: #a52a2a;color: #fff" class="btn">Back</button>
+            </div>
+
             <form action="{{url('/approve/'.$approveOfficer -> id)}}" method="POST">
                 @if (Session::has('success'))
 				    	<div class="alert alert-success">{{ Session::get('success') }}</div>
