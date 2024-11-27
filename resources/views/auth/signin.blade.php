@@ -9,7 +9,7 @@
 			<div class="row align-items-center text-center">
 				<div class="col-md-12">
 					<div class="card-body">
-						<h4 class="mb-3 f-w-400">LogIn</h4>
+						<h4 class="mb-3 f-w-400">Log In</h4>
                         <form action="{{ url('/login') }}" method="POST">
                             @if (Session::has('success'))
 							    <div class="alert alert-success">{{ Session::get('success') }}</div>
