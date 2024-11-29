@@ -21,7 +21,7 @@
                             @csrf
 						<div class="form-group mb-3">
 							<label class="floating-label" for="Email">Email address</label>
-							<input type="text" name="email" class="form-control" id="Email" placeholder="">
+							<input type="text" name="email" class="form-control" id="Email" value="{{old('email')}}">
 						</div>
 						<div class="form-group mb-4">
 							<label class="floating-label" for="Password">Password</label>

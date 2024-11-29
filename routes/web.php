@@ -8,6 +8,9 @@ Route::get('/', [AuthController::class, 'signIn']) -> middleware('alreadyLoggedI
 
 Route::post('/login', [AuthController::class, 'login']) -> name('login');
 
+Route::get('/profile', [AuthController::class, 'profile']) -> name('profile');
+Route::post('/profile', [AuthController::class, 'postProfile']) -> name('profile');
+
 Route::get('/logout', [AuthController::class, 'logout']) -> name('logout');
 
 Route::get('/dashboard', [MainController::class, 'dashboard']) -> name('dashboard') -> middleware('isLoggedIn');
