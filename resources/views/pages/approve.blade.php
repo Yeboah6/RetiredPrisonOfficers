@@ -100,6 +100,8 @@
                 <button onclick="history.back()" style="background-color: #a52a2a;color: #fff" class="btn">Back</button>
             </div>
 
+            @foreach ($approveOfficer as $approveOfficer)
+
             <form action="{{url('/approve/'.$approveOfficer -> id)}}" method="POST">
                 @if (Session::has('success'))
 				    	<div class="alert alert-success">{{ Session::get('success') }}</div>
@@ -111,7 +113,7 @@
                 @csrf
 
                 <fieldset id="personal">
-                    <input type="text" name="reg_id" hidden>
+                    <input type="text" name="reg_id" hidden value="{{ $approveOfficer -> reg_id}}">
                     <div class="form-group">
                         <label for="first-name">Full Name <span>*</span></label>
                             <input type="text" name="full_name" placeholder="Enter Full Name" value="{{ $approveOfficer -> full_name}}">
@@ -158,10 +160,22 @@
                         </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="full-name">Telephone <span>*</span></label>
-                        <input type="text" name="telephone" required placeholder="Enter Telephone" value="{{ $approveOfficer -> telephone}}">
-                        <span class="text-danger">@error('telephone'){{ $message }} @enderror</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="full-name">Telephone <span>*</span></label>
+                                <input type="text" name="telephone" required placeholder="Enter Telephone" value="{{ $approveOfficer -> telephone}}">
+                                <span class="text-danger">@error('telephone'){{ $message }} @enderror</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="full-name">Email <span>*</span></label>
+                                <input type="text" name="email" required placeholder="Enter Email" value="{{ $approveOfficer -> email}}">
+                                <span class="text-danger">@error('email'){{ $message }} @enderror</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="full-name">Ghana Card No <span>*</span></label>
@@ -225,7 +239,7 @@
                     </div>
                     <div class="form-group">
                         <label for="full-name">Present Occupation (If any) <span></span></label>
-                        <input type="text" name="present_occupation" required placeholder="Enter Present Occupation (If any)" value="{{ $approveOfficer -> present_occupation}}">
+                        <input type="text" name="present_occupation" placeholder="Enter Present Occupation (If any)" value="{{ $approveOfficer -> present_occupation}}">
                         <span class="text-danger">@error('present_occupation'){{ $message }} @enderror</span>
                     </div>
                     <div class="form-group">
@@ -256,6 +270,7 @@
                         <span class="text-danger">@error('status'){{ $message }} @enderror</span>
                     </div>
                 </fieldset>
+                @endforeach
 
                 <div class="card-footer text-right">
                     <button type="submit" style="background-color: #a52a2acc;color: #fff" class="btn">Save</button>

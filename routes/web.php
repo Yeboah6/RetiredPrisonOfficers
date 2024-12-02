@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,11 +26,35 @@ Route::get('/view/{id}', [MainController::class, 'viewOfficer']) -> name('view')
 
 Route::get('/delete/{id}', [MainController::class, 'deleteOfficer']) -> name('delete') -> middleware('isLoggedIn');
 
-Route::get('/edit/{id}', [MainController::class, 'editOfficer']) -> name('edit') -> middleware('isLoggedIn');
-Route::post('/edit/{id}', [MainController::class, 'postEditOfficer']) -> name('edit');
+// Route::get('/edit/{id}', [MainController::class, 'editOfficer']) -> name('edit') -> middleware('isLoggedIn');
+// Route::post('/edit/{id}', [MainController::class, 'postEditOfficer']) -> name('edit');
+
+Route::get('/preview', [MainController::class, 'preview']) -> name('preview');
+
+// Route::get('/sendmail/{id}', [MainController::class, 'sendmail']) -> name('sendmail');
+
 
 
 Route::get('/approve/{id}', [MainController::class, 'approveOfficer']) -> name('approve') -> middleware('isLoggedIn');
 Route::post('/approve/{id}', [MainController::class, 'postApproveOfficer']) -> name('approve');
 
 
+Route::get('/personal-info', [FormController::class, 'personalInfo']) -> name('personal-info');
+Route::post('/personal-info', [FormController::class, 'postPersonalInfo']) -> name('personal-info');
+
+Route::get('/edit-personal-info/{id}', [FormController::class, 'editPersonalInfo']) -> name('edit-personal-info');
+Route::post('/edit-personal-info/{id}', [FormController::class, 'postEditPersonalInfo']) -> name('edit-personal-info');
+
+
+Route::get('/professional-info', [FormController::class, 'professionalInfo']) -> name('professional-info');
+Route::post('/professional-info', [FormController::class, 'postProfessionalInfo']) -> name('professional-info');
+
+Route::get('/edit-professional-info/{id}', [FormController::class, 'editProfessionalInfo']) -> name('edit-professional-info');
+Route::post('/edit-professional-info/{id}', [FormController::class, 'postEditProfessionalInfo']) -> name('edit-professional-info');
+
+
+Route::get('/others', [FormController::class, 'others']) -> name('others');
+Route::post('/others', [FormController::class, 'postOthers']) -> name('others');
+
+Route::get('/edit-others/{id}', [FormController::class, 'editOther']) -> name('edit-other');
+Route::post('/edit-others/{id}', [FormController::class, 'postEditOther']) -> name('edit-other');

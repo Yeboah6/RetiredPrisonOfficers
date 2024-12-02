@@ -40,10 +40,10 @@
                             <div class="col-sm-6">
                             </div>
                             @if (Session::has('success'))
-                                <div class="alert alert-success">{{ Session::get('success') }}</div>
+                                <div class="alert alert-success" style="text-align: center;">{{ Session::get('success') }}</div>
                             @endif
                             @if (Session::has('fail'))
-                                <div class="alert alert-danger">{{ Session::get('fail') }}</div>
+                                <div class="alert alert-danger" style="text-align: center;">{{ Session::get('fail') }}</div>
                             @endif
                         </div>
                         <div class="table-responsive">
@@ -53,6 +53,7 @@
                                         <th>REG ID</th>
                                         <th>Name</th>
                                         <th>Number</th>
+                                        <th>Email</th>
                                         <th>Gov't Pension No</th>
                                         <th>Sex</th>
                                         <th>Prison SVC No</th>
@@ -68,6 +69,7 @@
                                         <td>{{ $officer -> reg_id}}</td>
                                         <td>{{ $officer -> full_name}}</td>
                                         <td>{{ $officer -> telephone}}</td>
+                                        <td>{{ $officer -> email}}</td>
                                         <td>{{ $officer -> govt_pension_no}}</td>
                                         <td>{{ $officer -> sex}}</td>
                                         <td>{{ $officer -> prison_svc_no}}</td>
@@ -82,7 +84,7 @@
                                         
                                         <td>
                                             <a href="{{ url ('/view/'.$officer -> id)}}" class="btn btn-warning btn-sm">View</a>
-                                            <a href="{{ url ('/edit/'.$officer -> id)}}" class="btn btn-info btn-sm">Edit</a>
+                                            <a href="{{ url ('/edit-personal-info/'.$officer -> id)}}" class="btn btn-info btn-sm">Edit</a>
                                             <a href="{{ url ('/approve/'.$officer -> id)}}" class="btn btn-success btn-sm">Approve</a>
                                             <a href="{{ url ('/delete/'.$officer -> id)}}" class="btn btn-danger btn-sm">Delete</a>
                                         </td>

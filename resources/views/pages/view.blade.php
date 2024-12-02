@@ -39,6 +39,9 @@
                             <h5><a class="text-secondary" href="repoaghana@gmail.com">repoaghana@gmail.com</a> 03 0393 3865</h5>
                         </div>
                         
+                        @foreach ($viewOfficer as $viewOfficer)
+                            
+                        
                         <h3 style="text-align:center">{{ $viewOfficer -> reg_id }}</h3>
                         <div class="card-body">
                             <div class="row invoive-info">
@@ -113,6 +116,7 @@
                             </div>
                         </div>
                     </div>
+                    @endforeach
                     <div class="row text-center">
                         <div class="col-sm-12 invoice-btn-group text-center">
                             <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-print-invoice m-b-10">Print</button>
