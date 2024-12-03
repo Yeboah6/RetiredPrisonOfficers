@@ -32,11 +32,14 @@ class FormController extends Controller
             'telephone' => 'required|string|max:255',
             'ghana_card_no' => 'required|string|max:255',
             'sex' => 'required|string|max:255',
-            'present_age' => 'required|string',
+            'present_age' => 'required|integer|min:60',
             'hometown' => 'required|string|max:255',
             'present_place_of_residence' => 'required|string|max:255',
             'marital_status' => 'required|string|max:255',
             'email' => 'required|email|max:255'
+        ],
+        [
+            'present_age.min' => 'Age must be at least 60 years.'
         ]);
     
         // Generate applicant ID
@@ -64,17 +67,22 @@ class FormController extends Controller
             'email' => $validatedData['email'],
         ]);
 
-        // Save the personal information
-        if ($personalInfo -> save()) {
-            // Store the personal_info_id in the session if save is successful
-            session(['personal_info_id' => $personalInfo -> id]);
-    
-            // Redirect to work experience page with success message
-            return redirect('/professional-info')->with('success', 'Personal Information Data saved successfully');
-        } else {
-            // Redirect back with failure message
-            return redirect()->back()->with('fail', 'Data not saved');
-        }
+        // if ($request -> input('present_age') >= 60) {
+            // Save the personal information
+            if ($personalInfo -> save()) {
+                // Store the personal_info_id in the session if save is successful
+                session(['personal_info_id' => $personalInfo -> id]);
+            
+                // Redirect to work experience page with success message
+                return redirect('/professional-info')->with('success', 'Personal Information Data saved successfully');
+            } else {
+                // Redirect back with failure message
+                return redirect()->back()->with('fail', 'Data not saved');
+            }
+        // } 
+        // else {
+        //     return redirect()->back()->with('fail', 'Age must be 60 or above');
+        // }
     }
 
     // Display Edit Personal Info Page Function
@@ -99,11 +107,14 @@ class FormController extends Controller
             'telephone' => 'required|string|max:255',
             'ghana_card_no' => 'required|string|max:255',
             'sex' => 'required|string|max:255',
-            'present_age' => 'required|string',
+            'present_age' => 'required|integer|min:60',
             'hometown' => 'required|string|max:255',
             'present_place_of_residence' => 'required|string|max:255',
             'marital_status' => 'required|string|max:255',
             'email' => 'required|email|max:255'
+        ],
+        [
+            'present_age.min' => 'Age must be at least 60 years.'
         ]);
 
         $editPersonalInfo = PersonalInfo::findOrFail($id);
@@ -182,8 +193,6 @@ class FormController extends Controller
         foreach ($personalInfo as $personalInfo) {
             if ($personalInfo -> id == $editProfessionalInfo -> personal_id) {
                 return view('forms.editProfessionalInfo', compact('editProfessionalInfo', 'data'));
-            } else {
-                return redirect('/professional-info');
             }
         }
     }
@@ -266,8 +275,6 @@ class FormController extends Controller
             if ($personalInfo -> id == $editOther -> personal_id) {
                 // dd($editOther -> personal_id);
                 return view('forms.editOther', compact('editOther', 'data'));
-            } else {
-                return redirect('/others');
             }
         }
 

@@ -24,11 +24,30 @@ class MainController extends Controller
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
 
-        // $forms = RegistrationForm::all() -> count();
-        // $registered = RegistrationForm::where('status', 'Submitted') -> count();
-        // $pending = RegistrationForm::where('status', 'Pending') -> count();
-        // $approve = RegistrationForm::where('status', 'Approved') -> count();
-        return view('pages.dashboard', compact( 'data'));
+        $forms = DB::table('personal_infos')
+        -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
+        -> join('others', 'personal_infos.id', '=', 'others.personal_id')
+        -> count();
+
+        $registered = DB::table('personal_infos')
+        -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
+        -> join('others', 'personal_infos.id', '=', 'others.personal_id')
+        -> where('others.status', "Submitted")
+        -> count();
+
+        $pending = DB::table('personal_infos')
+        -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
+        -> join('others', 'personal_infos.id', '=', 'others.personal_id')
+        -> where('others.status', "Pending")
+        -> count();
+
+        $approve = DB::table('personal_infos')
+        -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
+        -> join('others', 'personal_infos.id', '=', 'others.personal_id')
+        -> where('others.status', "Approved")
+        -> count();
+
+        return view('pages.dashboard', compact( 'data', 'forms', 'registered', 'pending', 'approve'));
     }
 
     public function preview() {
@@ -67,17 +86,7 @@ class MainController extends Controller
     }
 
     // Delete Officers Function
-    public function deleteOfficer($id) {
-        // $deleteOfficer = RegistrationForm::findOrFail($id);
-
-        // $deleteOfficer = DB::table('personal_infos')
-        // -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
-        // -> join('others', 'personal_infos.id', '=', 'others.personal_id')
-        // -> where('personal_infos.id', $id)
-        // -> get();
-
-        // $deleteOfficer -> delete();
-
+    public function deleteOfficer($id) { 
         DB::table('personal_infos') -> where('id', $id) -> delete();
         DB::table('professional_infos') -> where('personal_id', $id) -> delete();
         DB::table('others') -> where('personal_id', $id) -> delete();

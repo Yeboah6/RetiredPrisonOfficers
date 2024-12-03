@@ -112,35 +112,35 @@
 
                     <div class="form-group">
                         <label for="first-name">Full Name <span>*</span></label>
-                            <input type="text" name="full_name" placeholder="Enter Full Name"  required>
+                            <input type="text" name="full_name" placeholder="Enter Full Name"  required value="{{old('full_name')}}">
                         <span class="text-danger">@error('full_name'){{ $message }} @enderror</span>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="middle-name">Gov't Pension No: <span>*</span></label>
-                                <input type="text" name="govt_pension_no" placeholder="Enter Gov't Pension No">
+                                <input type="text" name="govt_pension_no" placeholder="Enter Gov't Pension No" value="{{old('govt_pension_no')}}">
                                 <span class="text-danger">@error('govt_pension_no'){{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="last-name">Prison SVC. No: <span>*</span></label>
-                                <input type="text" name="prison_svc_no" required placeholder="Enter Prison SVC. No">
+                                <input type="text" name="prison_svc_no" required placeholder="Enter Prison SVC. No" value="{{old('prison_svc_no')}}">
                                 <span class="text-danger">@error('prison_svc_no'){{ $message }} @enderror</span>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="dob">Residential Address <span>*</span></label>
-                        <input type="text" name="residential_address" required placeholder="Enter Residential Address">
+                        <input type="text" name="residential_address" required placeholder="Enter Residential Address" value="{{old('residential_address')}}">
                         <span class="text-danger">@error('residential_address'){{ $message }} @enderror</span>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nationality">Postal Address <span>*</span></label>
-                                <input type="text" name="postal_address" required placeholder="Enter Postal Address">
+                                <input type="text" name="postal_address" required placeholder="Enter Postal Address" value="{{old('postal_address')}}">
                                 <span class="text-danger">@error('postal_address'){{ $message }} @enderror</span>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                             <div class="form-group">
                                 <label for="nationality">Marital Status  <span>*</span></label>
                                 <select name="marital_status">
-                                    <option selected> -- Select Marital Status -- </option>
+                                    <option selected> {{old('marital_status')}} </option>
                                     <option value="Single">Single</option>
                                     <option value="Married">Married</option>
                                 </select>
@@ -160,7 +160,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="full-name">Telephone <span>*</span></label>
-                                <input type="text" name="telephone" required placeholder="Enter Telephone">
+                                <input type="text" name="telephone" required placeholder="Enter Telephone" value="{{old('telephone')}}">
                                 <span class="text-danger">@error('telephone'){{ $message }} @enderror</span>
                             </div>
                         </div>
@@ -168,14 +168,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="full-name">Email <span>*</span></label>
-                                <input type="text" name="email" required placeholder="Enter Email Address">
+                                <input type="text" name="email" required placeholder="Enter Email Address" value="{{old('email')}}">
                                 <span class="text-danger">@error('email'){{ $message }} @enderror</span>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="full-name">Ghana Card No <span>*</span></label>
-                        <input type="text" name="ghana_card_no" required placeholder="Enter Ghana Card No">
+                        <input type="text" name="ghana_card_no" required placeholder="Enter Ghana Card No" value="{{old('ghana_card_no')}}">
                         <span class="text-danger">@error('ghana_card_no'){{ $message }} @enderror</span>
                     </div>
                     <div class="row">
@@ -183,7 +183,7 @@
                             <div class="form-group">
                                 <label>Sex <span>*</span></label>
                                 <select name="sex">
-                                    <option selected> -- Choose Sex -- </option>
+                                    <option selected> {{old('sex')}} </option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
@@ -193,19 +193,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="full-name">Present Age <span>*</span></label>
-                                <input type="text" name="present_age" placeholder="Enter Present Age">
+                                <input type="text" name="present_age" placeholder="Enter Present Age" value="{{old('present_age')}}">
                                 <span class="text-danger">@error('present_age'){{ $message }} @enderror</span>
                             </div>
                         </div>    
                     </div>
                     <div class="form-group">
                         <label for="full-name">Present Place Of Residence <span>*</span></label>
-                        <input type="text" name="present_place_of_residence" required placeholder="Enter Present Place Of Residence">
+                        <input type="text" name="present_place_of_residence" required placeholder="Enter Present Place Of Residence" value="{{old('present_place_of_residence')}}">
                         <span class="text-danger">@error('present_place_of_residence'){{ $message }} @enderror</span>
                     </div>
                     <div class="form-group">
                         <label for="full-name">Hometown <span>*</span></label>
-                        <input type="text" name="hometown" required placeholder="Enter HomeTown">
+                        <input type="text" name="hometown" required placeholder="Enter HomeTown" value="{{old('hometown')}}">
                         <span class="text-danger">@error('hometown'){{ $message }} @enderror</span>
                     </div>
                 </fieldset>
