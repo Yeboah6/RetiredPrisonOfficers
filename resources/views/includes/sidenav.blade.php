@@ -27,7 +27,10 @@
 						<a href="/personal-info" class="nav-link "><span class="pcoded-micon"><i class="feather icon-edit-1"></i></span><span class="pcoded-mtext">Registration Forms</span></a>
 					</li>
 					<li class="nav-item">
-						<a href="/officers" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user-check"></i></span><span class="pcoded-mtext">officers</span></a>
+						<a href="/officers" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user-check"></i></span><span class="pcoded-mtext">Officers</span></a>
+					</li>
+					<li class="nav-item">
+						<a href="/report" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">Report</span></a>
 					</li>
 				</ul>
 			</div>

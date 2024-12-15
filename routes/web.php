@@ -21,6 +21,9 @@ Route::post('/forms', [MainController::class, 'postForm']) -> name('forms');
 
 Route::get('/officers', [MainController::class, 'officer']) -> name('officers') -> middleware('isLoggedIn');
 
+Route::get('/report', [MainController::class, 'report']) -> name('report') -> middleware('isLoggedIn');
+
+
 Route::get('/view/{id}', [MainController::class, 'viewOfficer']) -> name('view') -> middleware('isLoggedIn');
 
 

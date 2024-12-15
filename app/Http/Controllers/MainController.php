@@ -157,4 +157,78 @@ class MainController extends Controller
                 }
             return redirect('/officers');
     }
+
+
+    public function report(Request $request) {
+        $data = array();
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
+
+        $serviceId = PersonalInfo::all('prison_svc_no');
+        $rankName = ProfessionalInfo::all('rank_of_retirement');
+
+        // $region = 'REGID3047';         
+        $region = $request -> input('region');
+        $rank = $request -> input('rank');
+        $gender = $request -> input('gender');
+        $service_id = $request -> input('service_id');
+
+        $personal_info = PersonalInfo::all();
+        // // dd($personal_info);
+
+        // $professional_info = ProfessionalInfo::all();
+
+        // foreach ($personal_info as $info) {
+        //     $info;
+          
+        // }
+
+        $query = PersonalInfo::query()
+        -> where('prison_svc_no', 'LIKE', "%{$service_id}%")
+        // -> where('personal_id', $info -> id)
+        -> get();
+
+
+        // // dd($info);
+
+        return view('pages.report', compact('data', 'serviceId', 'rankName', 'query'));
+    }
+
+    // public function report(Request $request) {
+    //     $data = array();
+    
+    //     // Fetch logged-in user data
+    //     if (Session::has('loginId')) {
+    //         $data = SignIn::where('id', '=', Session::get('loginId'))->first();
+    //     }
+    
+    //     // Fetch other data needed for the view
+    //     $serviceId = PersonalInfo::all('prison_svc_no');
+    //     $rankName = ProfessionalInfo::all('rank_of_retirement');
+    
+    //     // Query joining tables and filtering based on region
+    //     $query = DB::table('personal_info')
+    //         ->join('professional_infos', 'personal_info.id', '=', 'professional_infos.personal_id')
+    //         ->join('others', 'personal_info.id', '=', 'others.personal_id')
+    //         ->select('professional_infos.branch');
+    
+    //     // Apply region filter if provided
+    //     if ($request->has('region')) {
+    //         $query->where('others.region', 'like', '%' . $request->input('region') . '%');
+    //     }
+    
+    //     // Sort by region
+    //     // $query->orderBy('others.region', 'asc');
+    
+    //     // Execute the query and fetch the results
+    //     $results = $query->get();
+
+    //     dd($query);
+    
+    //     // Pass the results to the view
+    //     // return view('pages.report', compact('data', 'serviceId', 'rankName', 'results'));
+    // }
+    
+    
 }
