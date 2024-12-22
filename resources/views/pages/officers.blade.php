@@ -55,7 +55,7 @@
                                         <th>Number</th>
                                         <th>Email</th>
                                         <th>Gov't Pension No</th>
-                                        <th>Sex</th>
+                                        <th>Gender</th>
                                         <th>Prison SVC No</th>
                                         <th>Residential Address</th>
                                         <th>Status</th>

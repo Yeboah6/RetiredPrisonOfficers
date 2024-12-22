@@ -144,8 +144,22 @@
                                 <label for="nationality">Branch / Region <span>*</span></label>
                                 <select name="branch">
                                     <option selected> -- Choose Branch / Region -- </option>
-                                    <option value="Accra">Accra</option>
-                                    <option value="Kumasi">Kumasi</option>
+                                    <option value="Upper West">Upper West</option>
+                                        <option value="Savannah">Savannah</option>
+                                        <option value="Bono East">Bono East</option>
+                                        <option value="Bono">Bono</option>
+                                        <option value="Ahafo">Ahafo</option>
+                                        <option value="Kumasi">Ashanti</option>
+                                        <option value="Western">Western</option>
+                                        <option value="Western North">Western North</option>
+                                        <option value="Upper East">Upper East</option>
+                                        <option value="North East">North East</option>
+                                        <option value="Northern">Northern</option>
+                                        <option value="Oti">Oti</option>
+                                        <option value="Volta">Volta</option>
+                                        <option value="Eastern">Eastern</option>
+                                        <option value="Accra">Greater Accra</option>
+                                        <option value="Central">Central</option>
                                 </select>
                                 <span class="text-danger">@error('branch'){{ $message }} @enderror</span>
                             </div>

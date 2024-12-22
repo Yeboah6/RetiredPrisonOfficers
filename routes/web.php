@@ -17,7 +17,7 @@ Route::get('/logout', [AuthController::class, 'logout']) -> name('logout');
 Route::get('/dashboard', [MainController::class, 'dashboard']) -> name('dashboard') -> middleware('isLoggedIn');
 
 Route::get('/forms', [MainController::class, 'form']) -> name('forms') -> middleware('isLoggedIn');
-Route::post('/forms', [MainController::class, 'postForm']) -> name('forms');
+// Route::post('/forms', [MainController::class, 'postForm']) -> name('forms');
 
 Route::get('/officers', [MainController::class, 'officer']) -> name('officers') -> middleware('isLoggedIn');
 

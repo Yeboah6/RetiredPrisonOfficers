@@ -36,6 +36,19 @@
 <script src="../assets/js/plugins/apexcharts.min.js"></script>
 <script src="../assets/js/pages/todo.js"></script>
 
+<!-- datatable Js -->
+<script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="../assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/js/plugins/buttons.colVis.min.js"></script>
+<script src="../assets/js/plugins/buttons.print.min.js"></script>
+<script src="../assets/js/plugins/pdfmake.min.js"></script>
+<script src="../assets/js/plugins/jszip.min.js"></script>
+<script src="../assets/js/plugins/dataTables.buttons.min.js"></script>
+<script src="../assets/js/plugins/buttons.html5.min.js"></script>
+<script src="../assets/js/plugins/buttons.bootstrap4.min.js"></script>
+<script src="../assets/js/pages/data-export-custom.js"></script>
+
+
 </body>
 
 </html>
