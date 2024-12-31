@@ -27,7 +27,7 @@
 							<label class="floating-label" for="Password">Password</label>
 							<input type="password" name="password" class="form-control" id="Password" placeholder="">
 						</div>
-						<button class="btn btn-block mb-4" type="submit" style="background-color: #A52A2A;color: #fff">Signin</button>
+						<button class="btn btn-block mb-4" type="submit" style="background-color: #A52A2A;color: #fff">Login</button>
                     </form>
 					</div>
 				</div>

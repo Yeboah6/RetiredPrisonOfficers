@@ -164,34 +164,39 @@ class MainController extends Controller
         if(Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
-
+    
         $serviceId = PersonalInfo::select('prison_svc_no')->distinct()->get();
         $rankName = ProfessionalInfo::select('rank_of_retirement')->distinct()->get();
-
-        // $gender = 'Male';
-        // $region = 'Kumasi';
-        // $rank = 'Captain';
-        // $service_id = '3463';
-
-        $gender = $request -> input('gender');
-        $region = $request -> input('region');
-        $rank = $request -> input('rank');
-        $age = $request -> input('age');
-
+    
+        $genderInput = $request->input('gender');
+        $region = $request->input('region');
+        $rank = $request->input('rank');
+        $age = $request->input('age');
+        $year = $request->input('year');
+    
         $query = DB::table('personal_infos')
-            -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
-            -> join('others', 'personal_infos.id', '=', 'others.personal_id')
-            -> where('branch', 'LIKE', "%{$region}%")
-            -> orWhere('rank_of_retirement', 'LIKE', "%{$rank}%")
-            -> orWhere('sex', 'LIKE', "%{$gender}%")
-            -> orWhere('present_age', '>', "%{$age}%")
-            -> get();
-
-        // dd($query);
-        
-
+            ->join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
+            ->join('others', 'personal_infos.id', '=', 'others.personal_id')
+            ->when($region, function($query, $region) {
+                return $query->where('branch', 'LIKE', "%{$region}%");
+            })
+            ->when($rank, function($query, $rank) {
+                return $query->orWhere('rank_of_retirement', 'LIKE', "%{$rank}%");
+            })
+            ->when($genderInput, function ($query, $genderInput) {
+                return $query->orWhere('sex', '=', strtolower($genderInput) === 'female' ? 'Female' : 'Male');
+            })
+            ->when($year, function($query, $year) {
+                return $query->orWhereRaw("YEAR(date_of_retirement) = ?", [$year]);
+            })
+            ->when($age, function($query, $age) {
+                return $query->orWhereBetween('present_age', [$age, $age + 10]);
+            })
+            ->get();
+    
         return view('pages.report', compact('data', 'serviceId', 'rankName', 'query'));
     }
+    
 
     public function form() {
         $data = array();

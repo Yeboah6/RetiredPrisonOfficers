@@ -107,7 +107,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="nav-item dropdown">
+                            {{-- <li class="nav-item dropdown">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <select name="age">
@@ -115,9 +115,23 @@
                                             <option value="60">60 - 70</option>
                                             <option value="70">70 - 80</option>
                                             <option value="80">80 - 90</option>
-                                            <option value="90">90 + </option>
+                                            <option value="90">90 - 100 </option>
                                         </select>
-                                        <span class="text-danger">@error('branch'){{ $message }} @enderror</span>
+                                        <span class="text-danger">@error('age'){{ $message }} @enderror</span>
+                                    </div>
+                                </div>
+                            </li> --}}
+                            <li class="nav-item dropdown">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="year">
+                                            <option selected>Year of Retirement</option>
+                                            <option value="2010">2010</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2024">2024</option>
+                                        </select>
+                                        <span class="text-danger">@error('year'){{ $message }} @enderror</span>
                                     </div>
                                 </div>
                             </li>
@@ -144,7 +158,7 @@
                             @endif
                         </div>
                         <div class="row text-center">
-                            <div class="col-sm-12 invoice-btn-group text-left">
+                            <div class="col-sm-12 invoice-btn-group text-right">
                                 <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-print-invoice m-b-10">Print</button>
                             </div>
                         </div>
@@ -197,45 +211,6 @@
                             </table>
                         </div>
                     </div>
-                    {{-- <div class="card-body">
-                        <div class="dt-responsive table-responsive">
-                            <table id="basic-btn" class="table table-striped table-bordered nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>REG ID</th>
-                                        <th>Name</th>
-                                        <th>Number</th>
-                                        <th>Gov't Pension No</th>
-                                        <th>Gender</th>
-                                        <th>Prison SVC No</th>
-                                        <th>Rank</th>
-                                        <th>Region / Branch</th>
-                                        <th>Options</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($query as $info)
-                                        <tr>
-                                            <td>{{ $info -> reg_id}}</td>
-                                            <td>{{ $info -> full_name}}</td>
-                                            <td>{{ $info -> telephone}}</td>
-                                            <td>{{ $info -> govt_pension_no}}</td>
-                                            <td>{{ $info -> sex}}</td>
-                                            <td>{{ $info -> prison_svc_no}}</td>
-                                            <td>{{ $info -> rank_of_retirement}}</td>
-                                            <td>{{ $info -> branch}}</td>
-                                            <td>
-                                                <a href="{{ url ('/view/'.$info -> id)}}" class="btn btn-warning btn-sm">View</a>
-                                                <a href="{{ url ('/edit-personal-info/'.$info -> id)}}" class="btn btn-info btn-sm">Edit</a>
-                                                <a href="{{ url ('/approve/'.$info -> id)}}" class="btn btn-success btn-sm">Approve</a>
-                                                <a href="{{ url ('/delete/'.$info -> id)}}" class="btn btn-danger btn-sm">Delete</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
             <!-- [ Invoice-right ] end -->
@@ -253,6 +228,88 @@
 
     <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
     <script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        function printData() {
+            // Select the content to print
+            var divToPrint = document.getElementById("report-table");
+            var clonedTable = divToPrint.cloneNode(true);
+    
+            // Remove the "Options" column from the cloned table
+            var headers = clonedTable.querySelectorAll("thead tr th");
+            var rows = clonedTable.querySelectorAll("tbody tr");
+    
+            headers[headers.length - 1].remove(); // Remove the last header (Options)
+    
+            rows.forEach(row => {
+                row.querySelectorAll("td")[headers.length - 1].remove(); // Remove the last cell in each row
+            });
+    
+            // Open a new window for the print preview
+            var newWin = window.open("");
+    
+            // Add print-specific styles
+            var styles = `
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        padding: 20px;
+                    }
+                    h5 {
+                        font-size: 1.2rem;
+                        margin: 5px 0;
+                        text-align: center;
+                    }
+                    .btn, .breadcrumb, .page-header, .page-block {
+                        display: none; /* Hide buttons and breadcrumbs */
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 20px;
+                    }
+                    th, td {
+                        border: 1px solid #ddd;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                    th {
+                        background-color: #f2f2f2;
+                    }
+                    @media print {
+                        .btn, .breadcrumb, .page-header, .page-block {
+                            display: none;
+                        }
+                    }
+                </style>
+            `;
+    
+            // Write the content and styles to the new window
+            newWin.document.write(`
+                <html>
+                <head>
+                    <title>Report Details</title>
+                    ${styles}
+                </head>
+                <body>
+                    ${clonedTable.outerHTML}
+                </body>
+                </html>
+            `);
+    
+            // Ensure all resources are loaded before printing
+            newWin.document.close();
+            newWin.onload = function() {
+                newWin.print();
+                newWin.close();
+            };
+        }
+    
+        // Event listener for the print button
+        document.querySelector('.btn-print-invoice').addEventListener('click', printData);
+    </script>
+    
+    
     
     <script>
         // DataTable start
