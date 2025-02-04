@@ -22,6 +22,7 @@ class PersonalInfo extends Model
         'hometown',
         'present_place_of_residence',
         'marital_status',
-        'email'
+        'email',
+        'stat'
     ];
 }

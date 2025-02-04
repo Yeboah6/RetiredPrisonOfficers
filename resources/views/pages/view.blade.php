@@ -40,7 +40,6 @@
                         </div>
                         
                         @foreach ($viewOfficer as $viewOfficer)
-                            
                         
                         <h3 style="text-align:center">{{ $viewOfficer -> reg_id }}</h3>
                         <div class="card-body">
@@ -89,11 +88,17 @@
                                     <br>
                                     <label for="" style="font-weight: bold; font-size:1rem">Where to Attend Meeting: </label>
                                     <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> where_to_attend_meeting}}</p>
+                                    <br>
+                                    <label for="" style="font-weight: bold; font-size:1rem">Status: </label>
+                                    <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> stat}}</p>
                                 </div>
 
                                 <div class="col-md-4 col-xs-12 invoice-client-info">
                                     <label for="" style="font-weight: bold; font-size:1rem">Branch / Region: </label>
-                                    <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> branch}}</p>
+                                    <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> region}}</p>
+                                    <br>
+                                    <label for="" style="font-weight: bold; font-size:1rem">District: </label>
+                                    <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> district}}</p>
                                     <br>
                                     <label for="" style="font-weight: bold; font-size:1rem">Hometown: </label>
                                     <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> hometown}}</p>
@@ -114,6 +119,30 @@
                                     <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> member_signature}}</p>
                                 </div>
                             </div>
+
+                            <hr>
+
+                            {{-- <div class="row invoive-info">
+                                <div class="col-md-4 col-xs-12 invoice-client-info">
+                                    <label for="" style="font-weight: bold; font-size:1rem">Secretary: </label>
+                                    <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> secretary}}</p>
+                                </div>
+                                <div class="col-md-4 col-xs-12 invoice-client-info">
+                                    <label for="" style="font-weight: bold; font-size:1rem">Chairman: </label>
+                                    <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> chairman}}</p>
+                                </div>
+                                <div class="col-md-4 col-xs-12 invoice-client-info">
+                                    <label for="" style="font-weight: bold; font-size:1rem">Treasury: </label>
+                                    <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> treasury}}</p>
+                                </div>
+                                <br> <br> <br><br>
+                                <div class="col-md-4 col-xs-12 invoice-client-info">
+                                    <label for="" style="font-weight: bold; font-size:1rem">REPOAG NO.: </label>
+                                    <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> repoag_no}}</p>
+                                </div>
+                            </div> --}}
+                            
+
                         </div>
                     </div>
                     @endforeach

@@ -252,10 +252,49 @@
                         <input type="text" name="next_of_kin" required placeholder="Enter Next Of Kin" value="{{ $approveOfficer -> next_of_kin}}">
                         <span class="text-danger">@error('next_of_kin'){{ $message }} @enderror</span>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="full-name">Member Signature <span>*</span></label>
+                                <input type="text" name="member_signature" required placeholder="Enter Member Signature" value="{{ $approveOfficer -> member_signature}}">
+                                <span class="text-danger">@error('member_signature'){{ $message }} @enderror</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Status <span>*</span></label>
+                                <select name="stat">
+                                    <option selected> {{ $approveOfficer -> stat}} </option>
+                                    <option value="Alive">Alive</option>
+                                    <option value="Dead">Dead</option>
+                                </select>
+                                <span class="text-danger">@error('stat'){{ $message }} @enderror</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <br>
+                    <hr>
+                    <input type="text" name="official_id" hidden value="{{ $approveOfficer -> personal_id}}">
                     <div class="form-group">
-                        <label for="full-name">Member Signature <span>*</span></label>
-                        <input type="text" name="member_signature" required placeholder="Enter Member Signature" value="{{ $approveOfficer -> member_signature}}">
-                        <span class="text-danger">@error('member_signature'){{ $message }} @enderror</span>
+                        <label for="first-name">Secretary <span>*</span></label>
+                            <input type="text" name="secretary" placeholder="Enter Secretary Name"  required value="{{ $approveOfficer -> secretary}}">
+                        <span class="text-danger">@error('secretary'){{ $message }} @enderror</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="first-name">Chairman <span>*</span></label>
+                            <input type="text" name="chairman" placeholder="Enter Chairman Name"  required value="{{ $approveOfficer -> chairman}}">
+                        <span class="text-danger">@error('chairman'){{ $message }} @enderror</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="first-name">Treasury <span>*</span></label>
+                            <input type="text" name="treasury" placeholder="Enter Treasury Name"  required value="{{ $approveOfficer -> treasury}}">
+                        <span class="text-danger">@error('treasury'){{ $message }} @enderror</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="first-name">REPOAG NO. <span>*</span></label>
+                            <input type="text" name="repoag_no" placeholder="Enter REPOAG NO."  required value="{{ $approveOfficer -> repoag_no}}">
+                        <span class="text-danger">@error('repoag_no'){{ $message }} @enderror</span>
                     </div>
                     <br>
                     <hr>

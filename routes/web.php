@@ -16,8 +16,13 @@ Route::get('/logout', [AuthController::class, 'logout']) -> name('logout');
 
 Route::get('/dashboard', [MainController::class, 'dashboard']) -> name('dashboard') -> middleware('isLoggedIn');
 
-Route::get('/forms', [MainController::class, 'form']) -> name('forms') -> middleware('isLoggedIn');
-// Route::post('/forms', [MainController::class, 'postForm']) -> name('forms');
+Route::get('/region', [MainController::class, 'region']) -> name('region') -> middleware('isLoggedIn');
+
+Route::get('/add-region', [MainController::class, 'addRegion']) -> name('add-region') -> middleware('isLoggedIn');
+Route::post('/add-region', [MainController::class, 'postAddRegion']) -> name('add-region');
+Route::get('/edit-region/{id}', [MainController::class, 'editRegion']) -> name('edit-region');
+Route::post('/edit-region/{id}', [MainController::class, 'postEditRegion']) -> name('edit-region');
+Route::get('/delete-region/{id}', [MainController::class, 'deleteRegion']) -> name('delete-region');
 
 Route::get('/officers', [MainController::class, 'officer']) -> name('officers') -> middleware('isLoggedIn');
 

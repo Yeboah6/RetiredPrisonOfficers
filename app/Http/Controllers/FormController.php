@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Districts;
 use App\Models\Others;
 use App\Models\PersonalInfo;
 use App\Models\ProfessionalInfo;
@@ -36,7 +37,8 @@ class FormController extends Controller
             'hometown' => 'required|string|max:255',
             'present_place_of_residence' => 'required|string|max:255',
             'marital_status' => 'required|string|max:255',
-            'email' => 'required|email|max:255'
+            'email' => 'email|max:255',
+            'stat' => 'required|max:255'
         ],
         [
             'present_age.min' => 'Age must be at least 60 years.'
@@ -65,6 +67,7 @@ class FormController extends Controller
             'present_place_of_residence' => $validatedData['present_place_of_residence'],
             'marital_status' => $validatedData['marital_status'],
             'email' => $validatedData['email'],
+            'stat' => $validatedData['stat']
         ]);
 
         // if ($request -> input('present_age') >= 60) {
@@ -111,7 +114,8 @@ class FormController extends Controller
             'hometown' => 'required|string|max:255',
             'present_place_of_residence' => 'required|string|max:255',
             'marital_status' => 'required|string|max:255',
-            'email' => 'required|email|max:255'
+            'email' => 'email|max:255',
+            'stat' => 'required|max:255'
         ],
         [
             'present_age.min' => 'Age must be at least 60 years.'
@@ -133,6 +137,7 @@ class FormController extends Controller
             'present_place_of_residence' => $validatedData['present_place_of_residence'],
             'marital_status' => $validatedData['marital_status'],
             'email' => $validatedData['email'],
+            'stat' => $validatedData['stat']
         ]);
 
         $editPersonalInfo -> update();
@@ -148,7 +153,10 @@ class FormController extends Controller
 
         $personal_id = session('personal_info_id');
 
-        return view('forms.professionalInfo', compact('data', 'personal_id'));
+        $district = Districts::all();
+        $region = Districts::select('region') -> distinct() -> get();
+
+        return view('forms.professionalInfo', compact('data', 'personal_id', 'region', 'district'));
 
     }
 
@@ -160,7 +168,8 @@ class FormController extends Controller
             'date_of_retirement' => 'nullable|string|max:255',
             'rank_of_retirement' => 'required|string|max:255',
             'station_retired' => 'required|string|max:255',
-            'branch' => 'required|string|max:255',
+            'region' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
             'where_to_attend_meeting' => 'required|string|max:255',
         ]);
 
@@ -172,7 +181,8 @@ class FormController extends Controller
             'date_of_retirement' => $validatedData['date_of_retirement'],
             'rank_of_retirement' => $validatedData['rank_of_retirement'],
             'station_retired' => $validatedData['station_retired'],
-            'branch' => $validatedData['branch'],
+            'region' => $validatedData['region'],
+            'district' => $validatedData['district'],
             'where_to_attend_meeting' => $validatedData['where_to_attend_meeting']
         ]);
 
@@ -205,7 +215,8 @@ class FormController extends Controller
             'date_of_retirement' => 'nullable|string|max:255',
             'rank_of_retirement' => 'required|string|max:255',
             'station_retired' => 'required|string|max:255',
-            'branch' => 'required|string|max:255',
+            'region' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
             'where_to_attend_meeting' => 'required|string|max:255',
         ]);
 
@@ -217,7 +228,8 @@ class FormController extends Controller
             'date_of_retirement' => $validatedData['date_of_retirement'],
             'rank_of_retirement' => $validatedData['rank_of_retirement'],
             'station_retired' => $validatedData['station_retired'],
-            'branch' => $validatedData['branch'],
+            'region' => $validatedData['region'],
+            'district' => $validatedData['district'],
             'where_to_attend_meeting' => $validatedData['where_to_attend_meeting']
         ]);
 

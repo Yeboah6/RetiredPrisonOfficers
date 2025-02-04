@@ -134,37 +134,37 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="full-name">Station Retired <span>*</span></label>
-                                <input type="text" name="station_retired" required placeholder="Enter Station Retired">
-                                <span class="text-danger">@error('station_retired'){{ $message }} @enderror</span>
+                                <label for="nationality">Branch / Region <span>*</span></label>
+                                <select name="region">
+                                    <option selected> -- Choose Branch / Region -- </option>
+                                    @foreach ($region as $region)
+                                        <option value="{{$region -> region}}">{{$region -> region}}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger">@error('region'){{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="nationality">Branch / Region <span>*</span></label>
-                                <select name="branch">
-                                    <option selected> -- Choose Branch / Region -- </option>
-                                    <option value="Upper West">Upper West</option>
-                                        <option value="Savannah">Savannah</option>
-                                        <option value="Bono East">Bono East</option>
-                                        <option value="Bono">Bono</option>
-                                        <option value="Ahafo">Ahafo</option>
-                                        <option value="Kumasi">Ashanti</option>
-                                        <option value="Western">Western</option>
-                                        <option value="Western North">Western North</option>
-                                        <option value="Upper East">Upper East</option>
-                                        <option value="North East">North East</option>
-                                        <option value="Northern">Northern</option>
-                                        <option value="Oti">Oti</option>
-                                        <option value="Volta">Volta</option>
-                                        <option value="Eastern">Eastern</option>
-                                        <option value="Accra">Greater Accra</option>
-                                        <option value="Central">Central</option>
+                                <label for="nationality">District <span>*</span></label>
+                                <select name="district">
+                                    <option selected> -- Choose District -- </option>
+                                    
+                                    @foreach ($district as $region)
+                                        <option value="{{$region -> district}}">{{$region -> district}}</option>
+                                    @endforeach
                                 </select>
-                                <span class="text-danger">@error('branch'){{ $message }} @enderror</span>
+                                <span class="text-danger">@error('district'){{ $message }} @enderror</span>
                             </div>
                         </div>
                     </div>
+                    {{-- <div class="col-md-6"> --}}
+                        <div class="form-group">
+                            <label for="full-name">Station Retired <span>*</span></label>
+                            <input type="text" name="station_retired" required placeholder="Enter Station Retired">
+                            <span class="text-danger">@error('station_retired'){{ $message }} @enderror</span>
+                        </div>
+                    {{-- </div> --}}
                     <div class="form-group">
                         <label for="full-name">Where To Attend Meeting <span>*</span></label>
                         <input type="text" name="where_to_attend_meeting" required placeholder="Enter Where To Attend Meeting">

@@ -107,6 +107,20 @@
                                     </div>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="year">
+                                            <option selected>Year of Retirement</option>
+                                            <option value="2010">2010</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2024">2024</option>
+                                        </select>
+                                        <span class="text-danger">@error('year'){{ $message }} @enderror</span>
+                                    </div>
+                                </div>
+                            </li>
                             {{-- <li class="nav-item dropdown">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -124,14 +138,12 @@
                             <li class="nav-item dropdown">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <select name="year">
-                                            <option selected>Year of Retirement</option>
-                                            <option value="2010">2010</option>
-                                            <option value="2015">2015</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2024">2024</option>
+                                        <select name="stat">
+                                            <option selected>Status</option>
+                                            <option value="Dead">Dead</option>
+                                            <option value="Alive">Alive</option>
                                         </select>
-                                        <span class="text-danger">@error('year'){{ $message }} @enderror</span>
+                                        <span class="text-danger">@error('stat'){{ $message }} @enderror</span>
                                     </div>
                                 </div>
                             </li>
@@ -158,7 +170,13 @@
                             @endif
                         </div>
                         <div class="row text-center">
-                            <div class="col-sm-12 invoice-btn-group text-right">
+                            <div class="col text-left">
+                                <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-print-invoice m-b-10">Quarterly Report</button>
+                            </div>
+                            <div class="col invoice-btn-group text-center">
+                                <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-print-invoice m-b-10">Yearly Report</button>
+                            </div>
+                            <div class="col-sm-6 invoice-btn-group text-right">
                                 <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-print-invoice m-b-10">Print</button>
                             </div>
                         </div>
@@ -169,12 +187,10 @@
                                         <th>REG ID</th>
                                         <th>Name</th>
                                         <th>Number</th>
-                                        <th>Email</th>
+                                        <th>Status</th>
                                         <th>Gov't Pension No</th>
                                         <th>Gender</th>
                                         <th>Prison SVC No</th>
-                                        <th>Residential Address</th>
-                                        {{-- <th>Status</th> --}}
                                         <th>Options</th>
                                     </tr>
                                 </thead>
@@ -185,19 +201,10 @@
                                         <td>{{ $officer -> reg_id}}</td>
                                         <td>{{ $officer -> full_name}}</td>
                                         <td>{{ $officer -> telephone}}</td>
-                                        <td>{{ $officer -> email}}</td>
+                                        <td>{{ $officer -> stat}}</td>
                                         <td>{{ $officer -> govt_pension_no}}</td>
                                         <td>{{ $officer -> sex}}</td>
                                         <td>{{ $officer -> prison_svc_no}}</td>
-                                        <td>{{ $officer -> residential_address}}</td>
-                                        {{-- @if ($officer -> status == "Submitted")
-                                            <td style="text-align: center"><span style="background-color: #008B9C;color:#fff;padding:8px;border-radius:50px;font-size:12px;text-align:center">{{ $officer -> status}}</span></td>
-                                        @elseif ($officer -> status == "Pending")
-                                            <td style="text-align: center"><span style="background-color: #fcf04e;color:#000;padding:8px;border-radius:50px;font-size:12px;text-align:center">{{ $officer -> status}}</span></td>
-                                        @elseif ($officer -> status == "Approved")
-                                        <td style="text-align: center"><span style="background-color: #45c739;color:#fff;padding:8px;border-radius:50px;font-size:12px;text-align:center">{{ $officer -> status}}</span></td>
-                                        @endif --}}
-                                        
                                         <td>
                                             <a href="{{ url ('/view/'.$officer -> id)}}" class="btn btn-warning btn-sm">View</a>
                                             <a href="{{ url ('/edit-personal-info/'.$officer -> id)}}" class="btn btn-info btn-sm">Edit</a>

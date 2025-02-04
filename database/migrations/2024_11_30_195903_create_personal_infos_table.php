@@ -28,6 +28,7 @@ return new class extends Migration
             $table -> string('hometown') -> nullable();
             $table -> string('present_place_of_residence') -> nullable();
             $table -> string('marital_status') -> nullable();
+            $table -> string('stat') -> nullable();
             $table->timestamps();
         });
     }

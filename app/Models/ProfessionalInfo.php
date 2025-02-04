@@ -14,7 +14,8 @@ class ProfessionalInfo extends Model
         'date_of_retirement',
         'rank_of_retirement',
         'station_retired',
-        'branch',
+        'region',
+        'district',
         'where_to_attend_meeting'
     ];
 }
