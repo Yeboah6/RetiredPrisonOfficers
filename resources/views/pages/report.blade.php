@@ -171,10 +171,10 @@
                         </div>
                         <div class="row text-center">
                             <div class="col text-left">
-                                <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-print-invoice m-b-10">Quarterly Report</button>
+                                <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-invoice m-b-10">Quarterly Report</button>
                             </div>
                             <div class="col invoice-btn-group text-center">
-                                <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-print-invoice m-b-10">Yearly Report</button>
+                                <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-invoice m-b-10">Yearly Report</button>
                             </div>
                             <div class="col-sm-6 invoice-btn-group text-right">
                                 <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-print-invoice m-b-10">Print</button>

@@ -36,8 +36,9 @@ Route::get('/delete/{id}', [MainController::class, 'deleteOfficer']) -> name('de
 
 Route::get('/preview', [MainController::class, 'preview']) -> name('preview');
 
-// Route::get('/sendmail/{id}', [MainController::class, 'sendmail']) -> name('sendmail');
 
+
+Route::get('/get-districts/{region}', [FormController::class, 'getDistricts']);
 
 
 Route::get('/approve/{id}', [MainController::class, 'approveOfficer']) -> name('approve') -> middleware('isLoggedIn');

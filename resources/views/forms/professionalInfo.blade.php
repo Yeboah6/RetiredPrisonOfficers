@@ -134,11 +134,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="nationality">Branch / Region <span>*</span></label>
-                                <select name="region">
+                                <label for="region">Branch / Region <span>*</span></label>
+                                <select name="region" id="region" class="form-control">
                                     <option selected> -- Choose Branch / Region -- </option>
-                                    @foreach ($region as $region)
-                                        <option value="{{$region -> region}}">{{$region -> region}}</option>
+                                    @foreach ($region as $regionItem)
+                                        <option value="{{ $regionItem->region }}">{{ $regionItem->region }}</option>
                                     @endforeach
                                 </select>
                                 <span class="text-danger">@error('region'){{ $message }} @enderror</span>
@@ -146,13 +146,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="nationality">District <span>*</span></label>
-                                <select name="district">
+                                <label for="district">District <span>*</span></label>
+                                <select name="district" id="district" class="form-control">
                                     <option selected> -- Choose District -- </option>
-                                    
-                                    @foreach ($district as $region)
-                                        <option value="{{$region -> district}}">{{$region -> district}}</option>
-                                    @endforeach
                                 </select>
                                 <span class="text-danger">@error('district'){{ $message }} @enderror</span>
                             </div>
@@ -182,5 +178,42 @@
     </div>
 </div>
 {{-- </div> --}}
+
+<!-- AJAX Script to Fetch Districts Dynamically -->
+<div id="loading" style="display: none;">Loading districts...</div>
+<div id="error" class="text-danger" style="display: none;"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#region').change(function() {
+            var region = $(this).val();
+            $('#loading').show();
+            $('#error').hide();
+            if (region) {
+                $.ajax({
+                    url: '{{ url("/get-districts") }}/' + region,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#district').empty();
+                        $('#district').append('<option selected> -- Choose District -- </option>');
+                        $.each(data, function(key, value) {
+                            $('#district').append('<option value="' + value.district + '">' + value.district + '</option>');
+                        });
+                        $('#loading').hide();
+                    },
+                    error: function() {
+                        $('#loading').hide();
+                        $('#error').text('Failed to load districts. Please try again.').show();
+                    }
+                });
+            } else {
+                $('#district').empty().append('<option selected> -- Choose District -- </option>');
+                $('#loading').hide();
+            }
+        });
+    });
+</script>
+
 
 @endsection

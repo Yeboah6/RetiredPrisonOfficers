@@ -6,6 +6,7 @@ use App\Models\Districts;
 use App\Models\Others;
 use App\Models\PersonalInfo;
 use App\Models\ProfessionalInfo;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Models\SignIn;
@@ -189,6 +190,14 @@ class FormController extends Controller
         $professionalInfo -> save();
         return redirect('/others') -> with('success', 'Professional Information Data saved successfully');
     }
+
+    // Get Districts When Region is Selected
+    public function getDistricts($region) {
+        $districts = DB::table('districts')->where('region', $region)->get(['district']); // Fetch districts properly
+        return response()->json($districts);
+    }
+
+
 
     // Display Edit Professional Info Page Function
     public function editProfessionalInfo($id) {

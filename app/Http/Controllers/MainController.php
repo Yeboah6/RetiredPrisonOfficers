@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use PDF; // Using Laravel-DOMPDF
 use App\Models\Others;
 use App\Models\PersonalInfo;
 use App\Models\ProfessionalInfo;
@@ -206,7 +207,7 @@ class MainController extends Controller
             ->join('others', 'personal_infos.id', '=', 'others.personal_id')
 
             ->when($region, function($query, $region) {
-                return $query->where('branch', 'LIKE', "%{$region}%");
+                return $query->where('region', 'LIKE', "%{$region}%");
             })
             ->when($rank, function($query, $rank) {
                 return $query->orWhere('rank_of_retirement', 'LIKE', "%{$rank}%");
@@ -307,11 +308,43 @@ class MainController extends Controller
 
     }
 
+    // Delete Region Function
     public function deleteRegion($id) {
         $region = Districts::findOrFail($id);
 
         $region -> delete();
         return redirect('/region') -> with('Data Deleted Successfully');
+    }
+
+
+    public function generateQuarterlyReport()
+    {
+        // Get the current quarter
+        $currentMonth = date('m');
+        $year = date('Y');
+
+        if ($currentMonth >= 1 && $currentMonth <= 3) {
+            $startDate = "$year-01-01";
+            $endDate = "$year-03-31";
+        } elseif ($currentMonth >= 4 && $currentMonth <= 6) {
+            $startDate = "$year-04-01";
+            $endDate = "$year-06-30";
+        } elseif ($currentMonth >= 7 && $currentMonth <= 9) {
+            $startDate = "$year-07-01";
+            $endDate = "$year-09-30";
+        } else {
+            $startDate = "$year-10-01";
+            $endDate = "$year-12-31";
+        }
+
+        // Fetch transactions for the quarter
+        $transactions = Transaction::whereBetween('created_at', [$startDate, $endDate])->get();
+
+        // Generate PDF
+        $pdf = PDF::loadView('reports.quarterly', compact('transactions'));
+
+        // Return the PDF as a download
+        return $pdf->download('quarterly_report.pdf');
     }
     
 }
