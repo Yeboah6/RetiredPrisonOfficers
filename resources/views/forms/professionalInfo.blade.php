@@ -65,7 +65,6 @@
 
     .fieldset {
         border: 1px solid #ffffff;
-        /* background-color: #005687; */
         width: 240px;
         padding: 10px;
         margin: 10px;
@@ -78,15 +77,9 @@
         position: absolute;
         left: 50px;
         top: 130px;
-        /* left: 50px; */
-        /* padding: 10px; */
-        /* margin: 10px; */
-
     }
 
 </style>
-
-{{-- <div class="container"> --}}
 
     <div class="pcoded-main-container">
         <div class="pcoded-content">
@@ -135,7 +128,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="region">Branch / Region <span>*</span></label>
-                                <select name="region" id="region" class="form-control">
+                                <select name="region" id="region" class="form-control"  style="background-color: #fff;">
                                     <option selected> -- Choose Branch / Region -- </option>
                                     @foreach ($region as $regionItem)
                                         <option value="{{ $regionItem->region }}">{{ $regionItem->region }}</option>
@@ -147,20 +140,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="district">District <span>*</span></label>
-                                <select name="district" id="district" class="form-control">
+                                <select name="district" id="district" class="form-control"  style="background-color: #fff;">
                                     <option selected> -- Choose District -- </option>
                                 </select>
                                 <span class="text-danger">@error('district'){{ $message }} @enderror</span>
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-md-6"> --}}
                         <div class="form-group">
                             <label for="full-name">Station Retired <span>*</span></label>
                             <input type="text" name="station_retired" required placeholder="Enter Station Retired">
                             <span class="text-danger">@error('station_retired'){{ $message }} @enderror</span>
                         </div>
-                    {{-- </div> --}}
                     <div class="form-group">
                         <label for="full-name">Where To Attend Meeting <span>*</span></label>
                         <input type="text" name="where_to_attend_meeting" required placeholder="Enter Where To Attend Meeting">
@@ -177,7 +168,6 @@
     </div>
     </div>
 </div>
-{{-- </div> --}}
 
 <!-- AJAX Script to Fetch Districts Dynamically -->
 <div id="loading" style="display: none;">Loading districts...</div>

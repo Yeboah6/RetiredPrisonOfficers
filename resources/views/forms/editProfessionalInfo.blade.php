@@ -65,7 +65,6 @@
 
     .fieldset {
         border: 1px solid #ffffff;
-        /* background-color: #005687; */
         width: 240px;
         padding: 10px;
         margin: 10px;
@@ -78,15 +77,9 @@
         position: absolute;
         left: 50px;
         top: 130px;
-        /* left: 50px; */
-        /* padding: 10px; */
-        /* margin: 10px; */
-
     }
 
 </style>
-
-{{-- <div class="container"> --}}
 
     <div class="pcoded-main-container">
         <div class="pcoded-content">
@@ -106,8 +99,6 @@
                 @csrf
 
                 <fieldset id="personal">
-                    {{-- @foreach ($editProfessionalInfo as $editProfessionalInfo) --}}
-                        
                     
                     <input type="text" name="personal_id" hidden value = "{{ $editProfessionalInfo -> personal_id }}">
 
@@ -137,43 +128,36 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="full-name">Station Retired <span>*</span></label>
-                                <input type="text" name="station_retired" required placeholder="Enter Station Retired" value="{{ $editProfessionalInfo -> station_retired }}">
-                                <span class="text-danger">@error('station_retired'){{ $message }} @enderror</span>
+                                <label for="region">Region <span>*</span></label>
+                                <select name="region" id="region" class="form-control"  style="background-color: #fff;">
+                                    <option selected> {{ $editProfessionalInfo -> region }} </option>
+                                    @foreach ($region as $regionItem)
+                                        <option value="{{ $regionItem -> region }}">{{ $regionItem -> region }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger">@error('region'){{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="nationality">Branch / Region <span>*</span></label>
-                                <select name="branch">
-                                    <option selected> {{ $editProfessionalInfo -> branch }} </option>
-                                    <option value="Upper West">Upper West</option>
-                                        <option value="Savannah">Savannah</option>
-                                        <option value="Bono East">Bono East</option>
-                                        <option value="Bono">Bono</option>
-                                        <option value="Ahafo">Ahafo</option>
-                                        <option value="Kumasi">Ashanti</option>
-                                        <option value="Western">Western</option>
-                                        <option value="Western North">Western North</option>
-                                        <option value="Upper East">Upper East</option>
-                                        <option value="North East">North East</option>
-                                        <option value="Northern">Northern</option>
-                                        <option value="Oti">Oti</option>
-                                        <option value="Volta">Volta</option>
-                                        <option value="Eastern">Eastern</option>
-                                        <option value="Accra">Greater Accra</option>
-                                        <option value="Central">Central</option>
+                                <label for="district">District <span>*</span></label>
+                                <select name="district" id="district" class="form-control"  style="background-color: #fff;">
+                                    <option selected> {{ $editProfessionalInfo -> district }} </option>
                                 </select>
-                                <span class="text-danger">@error('branch'){{ $message }} @enderror</span>
+                                <span class="text-danger">@error('district'){{ $message }} @enderror</span>
                             </div>
                         </div>
                     </div>
+                            <div class="form-group">
+                                <label for="full-name">Station Retired <span>*</span></label>
+                                <input type="text" name="station_retired" required placeholder="Enter Station Retired" value="{{ $editProfessionalInfo -> station_retired }}">
+                                <span class="text-danger">@error('station_retired'){{ $message }} @enderror</span>
+                            </div>
                     <div class="form-group">
                         <label for="full-name">Where To Attend Meeting <span>*</span></label>
                         <input type="text" name="where_to_attend_meeting" required placeholder="Enter Where To Attend Meeting" value="{{ $editProfessionalInfo -> where_to_attend_meeting }}">
                         <span class="text-danger">@error('where_to_attend_meeting'){{ $message }} @enderror</span>
                     </div>
-                    {{-- @endforeach --}}
                 </fieldset>
                 <div class="card-footer text-right">
                     <a href="{{ url('/edit-personal-info/'.$editProfessionalInfo -> id) }}"><button type="button" class="btn" style="background-color: #a52a2acc;color: #fff">Back</button></a>
@@ -185,6 +169,41 @@
     </div>
     </div>
 </div>
-{{-- </div> --}}
+
+<!-- AJAX Script to Fetch Districts Dynamically -->
+<div id="loading" style="display: none;">Loading districts...</div>
+<div id="error" class="text-danger" style="display: none;"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#region').change(function() {
+            var region = $(this).val();
+            $('#loading').show();
+            $('#error').hide();
+            if (region) {
+                $.ajax({
+                    url: '{{ url("/get-districts") }}/' + region,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#district').empty();
+                        $('#district').append('<option selected> -- Choose District -- </option>');
+                        $.each(data, function(key, value) {
+                            $('#district').append('<option value="' + value.district + '">' + value.district + '</option>');
+                        });
+                        $('#loading').hide();
+                    },
+                    error: function() {
+                        $('#loading').hide();
+                        $('#error').text('Failed to load districts. Please try again.').show();
+                    }
+                });
+            } else {
+                $('#district').empty().append('<option selected> -- Choose District -- </option>');
+                $('#loading').hide();
+            }
+        });
+    });
+</script>
 
 @endsection

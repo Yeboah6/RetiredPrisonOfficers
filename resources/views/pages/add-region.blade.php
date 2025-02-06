@@ -75,21 +75,17 @@
 
 </style>
 
-{{-- <div class="container"> --}}
-
     <div class="pcoded-main-container">
         <div class="pcoded-content">
   
     <div class="row" style="margin-top: -110px;">
         <div class="col-md-6 offset-md-3">
-            {{-- <h2 class="form-title">Registration Form</h2> --}}
 
             <form action="{{url('/add-region')}}" method="POST">
 
                 @csrf
 
                 <fieldset id="personal">
-                    {{-- <input type="text" name="personal_id" hidden value = "{{ $personal_id }}"> --}}
 
                     <legend>Region & District</legend>
 
@@ -118,6 +114,5 @@
     </div>
     </div>
 </div>
-{{-- </div> --}}
 
 @endsection

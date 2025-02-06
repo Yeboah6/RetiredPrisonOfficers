@@ -75,14 +75,11 @@
 
 </style>
 
-{{-- <div class="container"> --}}
-
     <div class="pcoded-main-container">
         <div class="pcoded-content">
   
     <div class="row" style="margin-top: -110px;">
         <div class="col-md-6 offset-md-3">
-            {{-- <h2 class="form-title">Registration Form</h2> --}}
 
             <form action="{{url('/edit-region/'.$region -> id)}}" method="POST">
 
@@ -117,6 +114,5 @@
     </div>
     </div>
 </div>
-{{-- </div> --}}
 
 @endsection

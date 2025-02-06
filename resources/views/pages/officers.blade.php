@@ -15,11 +15,9 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            {{-- <h5 class="m-b-10">Student</h5> --}}
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/dashboard"><i class="feather icon-home"></i></a></li>
-                            {{-- <li class="breadcrumb-item"><a href="#!">School</a></li> --}}
                             <li class="breadcrumb-item"><a href="#!">Officers</a></li>
                         </ul>
                     </div>
@@ -103,8 +101,8 @@
 
 <!-- [ Main Content ] end -->
 
-    <!-- Required Js -->
-    <script src="assets/js/vendor-all.min.js"></script>
+<!-- Required Js -->
+<script src="assets/js/vendor-all.min.js"></script>
 
 <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>

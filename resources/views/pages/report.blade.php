@@ -36,7 +36,6 @@
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/dashboard"><i class="feather icon-home"></i></a></li>
                             <li class="breadcrumb-item"><a href="#!">Report</a></li>
-                            {{-- <li class="breadcrumb-item"><a href="#!">Invoice List</a></li> --}}
                         </ul>
                     </div>
                 </div>
@@ -61,22 +60,9 @@
                                 <div class="form-group">
                                     <select name="region">
                                         <option selected>Choose Branch / Region</option>
-                                        <option value="Upper West">Upper West</option>
-                                        <option value="Savannah">Savannah</option>
-                                        <option value="Bono East">Bono East</option>
-                                        <option value="Bono">Bono</option>
-                                        <option value="Ahafo">Ahafo</option>
-                                        <option value="Kumasi">Ashanti</option>
-                                        <option value="Western">Western</option>
-                                        <option value="Western North">Western North</option>
-                                        <option value="Upper East">Upper East</option>
-                                        <option value="North East">North East</option>
-                                        <option value="Northern">Northern</option>
-                                        <option value="Oti">Oti</option>
-                                        <option value="Volta">Volta</option>
-                                        <option value="Eastern">Eastern</option>
-                                        <option value="Accra">Greater Accra</option>
-                                        <option value="Central">Central</option>
+                                        @foreach ($regions as $region)
+                                                <option value="{{$region -> region}}">{{$region -> region}}</option>
+                                            @endforeach
                                     </select>
                                     <span class="text-danger">@error('branch'){{ $message }} @enderror</span>
                                 </div>
@@ -95,7 +81,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="nav-item dropdown">
+                            {{-- <li class="nav-item dropdown">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <select name="gender">
@@ -106,16 +92,16 @@
                                         <span class="text-danger">@error('branch'){{ $message }} @enderror</span>
                                     </div>
                                 </div>
-                            </li>
+                            </li> --}}
                             <li class="nav-item dropdown">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <select name="year">
                                             <option selected>Year of Retirement</option>
-                                            <option value="2010">2010</option>
-                                            <option value="2015">2015</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2024">2024</option>
+                                            @foreach ($getYear as $year) {
+                                                <option value="{{$year -> date_of_retirement}}">{{$year -> date_of_retirement}}</option>
+                                                }
+                                            @endforeach
                                         </select>
                                         <span class="text-danger">@error('year'){{ $message }} @enderror</span>
                                     </div>
@@ -140,7 +126,7 @@
                                     <div class="form-group">
                                         <select name="stat">
                                             <option selected>Status</option>
-                                            <option value="Dead">Dead</option>
+                                            <option value="Deceased">Deceased</option>
                                             <option value="Alive">Alive</option>
                                         </select>
                                         <span class="text-danger">@error('stat'){{ $message }} @enderror</span>
@@ -170,13 +156,7 @@
                             @endif
                         </div>
                         <div class="row text-center">
-                            <div class="col text-left">
-                                <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-invoice m-b-10">Quarterly Report</button>
-                            </div>
-                            <div class="col invoice-btn-group text-center">
-                                <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-invoice m-b-10">Yearly Report</button>
-                            </div>
-                            <div class="col-sm-6 invoice-btn-group text-right">
+                            <div class="col-sm-12 invoice-btn-group text-right">
                                 <button type="button" style="background-color: #a52a2acc;color: #fff" class="btn btn-print-invoice m-b-10">Print</button>
                             </div>
                         </div>
@@ -229,9 +209,6 @@
 
     <!-- Required Js -->
     <script src="../assets/js/vendor-all.min.js"></script>
-    {{-- <script src="../assets/js/plugins/bootstrap.min.js"></script>
-    <script src="../assets/js/ripple.js"></script>
-    <script src="../assets/js/pcoded.min.js"></script> --}}
 
     <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
     <script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
@@ -322,6 +299,12 @@
         // DataTable start
         $('#report-table').DataTable();
         // DataTable end
+    </script>
+
+    <script>
+        document.getElementById('generateReport').addEventListener('click', function () {
+            window.location.href = "{{ route('quarterly.report') }}";
+        });
     </script>
 
 @endsection

@@ -65,7 +65,6 @@
 
     .fieldset {
         border: 1px solid #ffffff;
-        /* background-color: #005687; */
         width: 240px;
         padding: 10px;
         margin: 10px;
@@ -78,10 +77,6 @@
         position: absolute;
         left: 50px;
         top: 130px;
-        /* left: 50px; */
-        /* padding: 10px; */
-        /* margin: 10px; */
-
     }
 
 </style>
@@ -215,7 +210,7 @@
                                 <select name="stat">
                                     <option selected> {{ $editPersonalInfo -> stat}} </option>
                                     <option value="Alive">Alive</option>
-                                    <option value="Dead">Dead</option>
+                                    <option value="Deceased">Deceased</option>
                                 </select>
                                 <span class="text-danger">@error('stat'){{ $message }} @enderror</span>
                             </div>

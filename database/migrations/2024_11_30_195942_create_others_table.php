@@ -20,6 +20,11 @@ return new class extends Migration
             $table -> string('next_of_kin') -> nullable();
             $table -> string('member_signature') -> nullable();
             $table -> string('status') -> nullable();
+            
+            $table -> string('secretary') -> nullable();
+            $table -> string('chairman') -> nullable();
+            $table -> string('treasury') -> nullable();
+            $table -> string('repoag_no') -> nullable();
             $table->timestamps();
         });
     }

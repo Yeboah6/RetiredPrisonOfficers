@@ -8,7 +8,7 @@
 
 <style>
 
-.form-title {
+    .form-title {
         background-color: #461d1dcc;
         color: white;
         padding: 10px;
@@ -17,7 +17,7 @@
         text-align: center;
     }
 
- fieldset {
+    fieldset {
         border: 1px solid #867e7e;
         padding: 20px;
         border-radius: 4px;
@@ -37,6 +37,7 @@
     input[type="email"],
     input[type="file"],
     input[type='month'],
+    input[type='number'],
     textarea,
     select {
         width: calc(100% - 20px);
@@ -65,7 +66,6 @@
 
     .fieldset {
         border: 1px solid #ffffff;
-        /* background-color: #005687; */
         width: 240px;
         padding: 10px;
         margin: 10px;
@@ -78,15 +78,9 @@
         position: absolute;
         left: 50px;
         top: 130px;
-        /* left: 50px; */
-        /* padding: 10px; */
-        /* margin: 10px; */
-
     }
 
 </style>
-
-{{-- <div class="container"> --}}
 
     <div class="pcoded-main-container">
         <div class="pcoded-content">
@@ -216,7 +210,7 @@
                                 <select name="stat">
                                     <option selected> {{old('stat')}} </option>
                                     <option value="Alive">Alive</option>
-                                    <option value="Dead">Dead</option>
+                                    <option value="Deceased">Deceased</option>
                                 </select>
                                 <span class="text-danger">@error('stat'){{ $message }} @enderror</span>
                             </div>
@@ -233,6 +227,5 @@
     </div>
     </div>
 </div>
-{{-- </div> --}}
 
 @endsection

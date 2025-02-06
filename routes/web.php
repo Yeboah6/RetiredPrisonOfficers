@@ -64,3 +64,10 @@ Route::post('/others', [FormController::class, 'postOthers']) -> name('others');
 
 Route::get('/edit-others/{id}', [FormController::class, 'editOther']) -> name('edit-other') -> middleware('isLoggedIn');
 Route::post('/edit-others/{id}', [FormController::class, 'postEditOther']) -> name('edit-other');
+
+
+
+Route::get('/quarterly-report', [MainController::class, 'generateQuarterlyReport'])->name('quarterly.report');
+Route::get('/periodic-report', [MainController::class, 'periodicReport'])->name('periodic.report');
+
+Route::get('/generate-quarterly-report', [MainController::class, 'newGenerateQuarterlyReport'])->name('quarterly.report');

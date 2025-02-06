@@ -71,22 +71,17 @@ class FormController extends Controller
             'stat' => $validatedData['stat']
         ]);
 
-        // if ($request -> input('present_age') >= 60) {
-            // Save the personal information
-            if ($personalInfo -> save()) {
-                // Store the personal_info_id in the session if save is successful
-                session(['personal_info_id' => $personalInfo -> id]);
-            
-                // Redirect to work experience page with success message
-                return redirect('/professional-info')->with('success', 'Personal Information Data saved successfully');
-            } else {
-                // Redirect back with failure message
-                return redirect()->back()->with('fail', 'Data not saved');
-            }
-        // } 
-        // else {
-        //     return redirect()->back()->with('fail', 'Age must be 60 or above');
-        // }
+        // Save the personal information
+        if ($personalInfo -> save()) {
+            // Store the personal_info_id in the session if save is successful
+            session(['personal_info_id' => $personalInfo -> id]);
+        
+            // Redirect to work experience page with success message
+            return redirect('/professional-info')->with('success', 'Personal Information Data saved successfully');
+        } else {
+            // Redirect back with failure message
+            return redirect()->back()->with('fail', 'Data not saved');
+        }
     }
 
     // Display Edit Personal Info Page Function
@@ -198,7 +193,6 @@ class FormController extends Controller
     }
 
 
-
     // Display Edit Professional Info Page Function
     public function editProfessionalInfo($id) {
         $data = array();
@@ -209,9 +203,12 @@ class FormController extends Controller
         $personalInfo = PersonalInfo::all();
         $editProfessionalInfo = ProfessionalInfo::findOrFail($id);
 
+        $district = Districts::all();
+        $region = Districts::select('region') -> distinct() -> get();
+
         foreach ($personalInfo as $personalInfo) {
             if ($personalInfo -> id == $editProfessionalInfo -> personal_id) {
-                return view('forms.editProfessionalInfo', compact('editProfessionalInfo', 'data'));
+                return view('forms.editProfessionalInfo', compact('editProfessionalInfo', 'data', 'district', 'region'));
             }
         }
     }
@@ -294,7 +291,6 @@ class FormController extends Controller
 
         foreach ($personalInfo as $personalInfo) {
             if ($personalInfo -> id == $editOther -> personal_id) {
-                // dd($editOther -> personal_id);
                 return view('forms.editOther', compact('editOther', 'data'));
             }
         }

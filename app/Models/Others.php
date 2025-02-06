@@ -12,6 +12,10 @@ class Others extends Model
         'personal_id',
         'present_occupation',
         'next_of_kin',
-        'member_signature'
+        'member_signature',
+        'secretary',
+        'chairman',
+        'treasury',
+        'repoag_no'
     ];
 }

@@ -10,9 +10,6 @@ class OfficialUse extends Model
 
     protected $fillable = [
         'personal_id',
-        'secretary',
-        'chairman',
-        'treasury',
-        'repoag_no'
+
     ]; 
 }

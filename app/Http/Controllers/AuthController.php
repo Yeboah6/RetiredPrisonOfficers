@@ -53,6 +53,7 @@ class AuthController extends Controller
         return view('pages.profile', compact('data'));
     }
 
+    // Save Profile Data Function
     public function postProfile(Request $request) {
         $request -> validate([
             'email' => 'required|email',

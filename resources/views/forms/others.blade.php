@@ -65,7 +65,6 @@
 
     .fieldset {
         border: 1px solid #ffffff;
-        /* background-color: #005687; */
         width: 240px;
         padding: 10px;
         margin: 10px;
@@ -78,15 +77,9 @@
         position: absolute;
         left: 50px;
         top: 130px;
-        /* left: 50px; */
-        /* padding: 10px; */
-        /* margin: 10px; */
-
     }
 
 </style>
-
-{{-- <div class="container"> --}}
 
     <div class="pcoded-main-container">
         <div class="pcoded-content">
@@ -136,6 +129,5 @@
     </div>
     </div>
 </div>
-{{-- </div> --}}
 
 @endsection

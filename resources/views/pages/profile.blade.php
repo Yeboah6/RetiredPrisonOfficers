@@ -17,7 +17,6 @@
                              <div class="col-md-8 mt-md-4">
                                  <div class="row">
                                      <div class="col-md-6">
-                                        {{-- <a href="https://dernansalt.com.gh/" class="mb-1 text-muted d-flex align-items-end text-h-primary" target="_blank"><i class="feather icon-globe mr-2 f-18"></i>https://dernansalt.com.gh</a> --}}
                                         <div class="clearfix"></div>
                                         <a href="mailto:{{$data -> email}}" class="mb-1 text-muted d-flex align-items-end text-h-primary"><i class="feather icon-mail mr-2 f-18"></i>{{$data -> email}}</a>
                                         <div class="clearfix"></div>

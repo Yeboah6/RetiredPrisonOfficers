@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\Mails;
 use App\Mail\SendMail;
 use App\Models\Districts;
-use App\Models\OfficialUse;
 use Illuminate\Support\Facades\Session;
 
 class MainController extends Controller
@@ -26,15 +25,11 @@ class MainController extends Controller
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
 
-        $forms = DB::table('personal_infos')
-        -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
-        -> join('others', 'personal_infos.id', '=', 'others.personal_id')
-        -> count();
+        $regions = Districts::all() -> count();
 
         $registered = DB::table('personal_infos')
         -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
         -> join('others', 'personal_infos.id', '=', 'others.personal_id')
-        -> where('others.status', "Submitted")
         -> count();
 
         $pending = DB::table('personal_infos')
@@ -49,7 +44,7 @@ class MainController extends Controller
         -> where('others.status', "Approved")
         -> count();
 
-        return view('pages.dashboard', compact( 'data', 'forms', 'registered', 'pending', 'approve'));
+        return view('pages.dashboard', compact( 'data', 'regions', 'registered', 'pending', 'approve'));
     }
 
     public function preview() {
@@ -71,20 +66,27 @@ class MainController extends Controller
     }
 
     // View Specified Officer Page Function
+
     public function viewOfficer($id) {
         $data = array();
-        if(Session::has('loginId')) {
-            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        if (Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId'))->first();
         }
-
+    
+        // Retrieve personal info
+        $personalInfo = DB::table('personal_infos')->where('id', $id)->first();
+    
+        if (!$personalInfo) {
+            return redirect()->back()->with('error', 'Personal info not found.');
+        }
+    
+        // Retrieve officer details, allowing for cases where official_uses may not exist
         $viewOfficer = DB::table('personal_infos')
-        -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
-        -> join('others', 'personal_infos.id', '=', 'others.personal_id')
-        // -> join('official_uses', 'personal_infos.id', '=', 'official_uses.personal_id')
-        -> where('personal_infos.id', $id)
-        -> get();
-
-        // dd($viewOfficer);
+            -> leftJoin('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
+            -> leftJoin('others', 'personal_infos.id', '=', 'others.personal_id')
+            -> where('personal_infos.id', $id)
+            -> get();
+    
         return view('pages.view', compact('viewOfficer', 'data'));
     }
 
@@ -107,11 +109,13 @@ class MainController extends Controller
         $approveOfficer = DB::table('personal_infos')
         -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
         -> join('others', 'personal_infos.id', '=', 'others.personal_id')
-        -> join('official_uses', 'personal_infos.id', '=', 'official_uses.personal_id')
         -> where('personal_infos.id', $id)
         -> get();
 
-        return view('pages.approve', compact('approveOfficer', 'data'));
+        $district = Districts::all();
+        $region = Districts::select('region') -> distinct() -> get();
+
+        return view('pages.approve', compact('approveOfficer', 'data', 'district', 'region'));
     }
 
     // Update Approve Data Function
@@ -140,6 +144,7 @@ class MainController extends Controller
                 'present_place_of_residence' => $request -> input('present_place_of_residence'),
                 'marital_status' => $request -> input('marital_status'),
                 'email' => $request -> input('email'),
+                'stat' => $request -> input('stat'),
             ]);
 
             ProfessionalInfo::where('personal_id', $id)
@@ -148,7 +153,8 @@ class MainController extends Controller
                     'date_of_retirement' => $request -> input('date_of_retirement'),
                     'rank_of_retirement' => $request -> input('rank_of_retirement'),
                     'station_retired' => $request -> input('station_retired'),
-                    'branch' => $request -> input('branch'),
+                    'region' => $request -> input('region'),
+                    'district' => $request -> input('district'),
                     'where_to_attend_meeting' => $request -> input('where_to_attend_meeting'),
             ]);
 
@@ -158,23 +164,14 @@ class MainController extends Controller
                     'next_of_kin' => $request -> input('next_of_kin'),
                     'member_signature' => $request -> input('member_signature'),
                     'status' => $request -> input('status'),
+
+                    'secretary' => $validatedData['secretary'],
+                    'chairman' => $validatedData['chairman'],
+                    'treasury' => $validatedData['treasury'],
+                    'repoag_no' => $validatedData['repoag_no']
                 ]);
 
-                $officialUse = new OfficialUse();
-
-                    $officialUse -> fill([
-                        'personal_id' => $validatedData['official_id'],
-                        'secretary' => $validatedData['secretary'],
-                        'chairman' => $validatedData['chairman'],
-                        'treasury' => $validatedData['treasury'],
-                        'repoag_no' => $validatedData['repoag_no']
-                    ]);
-
-                    $officialUse -> save();
-
-
-
-                if ($request->input('status') === "Approved") {
+                if ($request -> input('status') === "Approved") {
                     $personalInfo = PersonalInfo::findOrFail($id);
 
                     // Send email
@@ -191,14 +188,18 @@ class MainController extends Controller
         if(Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
+
+        $getYear = ProfessionalInfo::select('date_of_retirement') -> distinct() -> get(date('Y'));
+        //  ('year', date('Y'));
     
-        $serviceId = PersonalInfo::select('prison_svc_no')->distinct()->get();
-        $rankName = ProfessionalInfo::select('rank_of_retirement')->distinct()->get();
+        $serviceId = PersonalInfo::select('prison_svc_no') -> distinct() -> get();
+        $rankName = ProfessionalInfo::select('rank_of_retirement') -> distinct() -> get();
+        $regions = Districts::select('region') -> distinct() -> get();
     
         $genderInput = $request->input('gender');
         $region = $request->input('region');
         $rank = $request->input('rank');
-        // $age = $request->input('age');
+        $age = $request->input('age');
         $year = $request->input('year');
         $statInput = $request -> input('stat');
     
@@ -212,27 +213,21 @@ class MainController extends Controller
             ->when($rank, function($query, $rank) {
                 return $query->orWhere('rank_of_retirement', 'LIKE', "%{$rank}%");
             })
+            // -> when($genderInput, function($query, $gender) {
+            //     return $query -> orWhere('sex', 'LIKE', "%{$gender}%");
+            // })
             ->when($genderInput, function($query, $genderInput) {
                 return $query->orWhere('sex', 'LIKE', "%{$genderInput}%");
             })
-            // ->when($genderInput, function ($query, $genderInput) {
-            //     return $query->orWhere('sex', '=', strtolower($genderInput) === 'female' ? 'Female' : 'Male');
-            // })
             ->when($year, function($query, $year) {
                 return $query->orWhereRaw("YEAR(date_of_retirement) = ?", [$year]);
             })
-            // ->when($age, function($query, $age) {
-            //     return $query->orWhereBetween('present_age', [$age, $age + 10]);
-            // })
-            // ->when($statInput, function ($query, $statInput) {
-            //     return $query->orWhere('stat', '=', strtolower($statInput) === 'dead' ? 'Dead' : 'Alive');
-            // })
             ->when($statInput, function($query, $statInput) {
                 return $query->orWhere('stat', 'LIKE', "%{$statInput}%");
             })
             ->get();
     
-        return view('pages.report', compact('data', 'serviceId', 'rankName', 'query'));
+        return view('pages.report', compact('data', 'serviceId', 'rankName', 'regions', 'getYear', 'query'));
     }
     
 
@@ -316,35 +311,80 @@ class MainController extends Controller
         return redirect('/region') -> with('Data Deleted Successfully');
     }
 
-
-    public function generateQuarterlyReport()
-    {
-        // Get the current quarter
-        $currentMonth = date('m');
-        $year = date('Y');
-
-        if ($currentMonth >= 1 && $currentMonth <= 3) {
-            $startDate = "$year-01-01";
-            $endDate = "$year-03-31";
-        } elseif ($currentMonth >= 4 && $currentMonth <= 6) {
-            $startDate = "$year-04-01";
-            $endDate = "$year-06-30";
-        } elseif ($currentMonth >= 7 && $currentMonth <= 9) {
-            $startDate = "$year-07-01";
-            $endDate = "$year-09-30";
-        } else {
-            $startDate = "$year-10-01";
-            $endDate = "$year-12-31";
+    public function periodicReport() {
+        $data = array();
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
 
-        // Fetch transactions for the quarter
-        $transactions = Transaction::whereBetween('created_at', [$startDate, $endDate])->get();
+        return view('pages.periodic-report', compact('data'));
+    }
+
+
+    // Generate Quarterly Report Function
+    public function newGenerateQuarterlyReport(Request $request) {
+        // Get request parameters (default to current year & quarter)
+        $year = $request->input('year', date('Y'));
+        $quarter = $request->input('quarter'); // If not provided, yearly report
+        $stat = $request->input('stat', 'all'); // Default to "all"
+
+        // Determine start and end date
+        if ($quarter) {
+            // Quarterly Report
+            switch ($quarter) {
+                case 1:
+                    $startDate = "$year-01-01";
+                    $endDate = "$year-03-31";
+                    break;
+                case 2:
+                    $startDate = "$year-04-01";
+                    $endDate = "$year-06-30";
+                    break;
+                case 3:
+                    $startDate = "$year-07-01";
+                    $endDate = "$year-09-30";
+                    break;
+                case 4:
+                    $startDate = "$year-10-01";
+                    $endDate = "$year-12-31";
+                    break;
+                default:
+                    return response()->json(['error' => 'Invalid quarter'], 400);
+            }
+            $reportTitle = "Quarterly Report - Q$quarter $year";
+            $fileName = "quarterly_report_Q{$quarter}_{$year}.pdf";
+        } else {
+            // Yearly Report
+            $startDate = "$year-01-01";
+            $endDate = "$year-12-31";
+            $reportTitle = "Yearly Report - $year";
+            $fileName = "yearly_report_{$year}.pdf";
+        }
+
+        // Query data with joins
+        $transactions = DB::table('personal_infos')
+            ->join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
+            ->join('others', 'personal_infos.id', '=', 'others.personal_id')
+            ->whereBetween('personal_infos.created_at', [$startDate, $endDate]);
+
+        // Apply stat filter if provided and not "all"
+        if ($stat !== "all") {
+            $transactions->where('personal_infos.stat', $stat);
+        }
+
+        $transactions = $transactions->select(
+            'personal_infos.*',
+            'professional_infos.*',
+            'others.*',
+            'personal_infos.stat as stat',
+            DB::raw("DATE_FORMAT(personal_infos.created_at, '%Y-%m-%d') as formatted_date")
+        )->get();
 
         // Generate PDF
-        $pdf = PDF::loadView('reports.quarterly', compact('transactions'));
+        $pdf = PDF::loadView('pages.quarterly', compact('transactions', 'year', 'quarter', 'reportTitle'));
 
-        // Return the PDF as a download
-        return $pdf->download('quarterly_report.pdf');
+        // Return PDF download
+        return $pdf->download($fileName);
     }
-    
+ 
 }

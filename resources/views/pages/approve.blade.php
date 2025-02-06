@@ -16,9 +16,6 @@
         margin: 20px 0;
         text-align: center;
     }
- /* .application-form {
-        margin-top: 20px;
-    } */
 
  fieldset {
         border: 1px solid #ccc;
@@ -66,7 +63,6 @@
 
     .fieldset {
         border: 1px solid #ffffff;
-        /* background-color: #005687; */
         width: 240px;
         padding: 10px;
         margin: 10px;
@@ -79,15 +75,9 @@
         position: absolute;
         left: 50px;
         top: 130px;
-        /* left: 50px; */
-        /* padding: 10px; */
-        /* margin: 10px; */
-
     }
 
 </style>
-
-{{-- <div class="container"> --}}
 
     <div class="pcoded-main-container">
         <div class="pcoded-content">
@@ -114,6 +104,10 @@
 
                 <fieldset id="personal">
                     <input type="text" name="reg_id" hidden value="{{ $approveOfficer -> reg_id}}">
+
+<label style="text-align:center;color:red;">Personal Information</label>
+<hr>
+
                     <div class="form-group">
                         <label for="first-name">Full Name <span>*</span></label>
                             <input type="text" name="full_name" placeholder="Enter Full Name" value="{{ $approveOfficer -> full_name}}">
@@ -149,15 +143,15 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="nationality">Branch / Region <span>*</span></label>
-                            <select name="branch">
-                                <option selected>{{ $approveOfficer -> branch}} </option>
-                                <option value="Accra">Accra</option>
-                                <option value="Kumasi">Kumasi</option>
-                            </select>
-                            <span class="text-danger">@error('branch'){{ $message }} @enderror</span>
-                        </div>
+                            <div class="form-group">
+                                <label for="nationality">Marital Status  <span>*</span></label>
+                                <select name="marital_status">
+                                    <option selected> {{ $approveOfficer -> marital_status}} </option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                </select>
+                                <span class="text-danger">@error('marital_status'){{ $message }} @enderror</span>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -203,61 +197,16 @@
                         </div>    
                     </div>
                     <div class="form-group">
-                        <label for="full-name">Date of Enlistment <span>*</span></label>
-                        <input type="date" name="date_of_enlistment" required placeholder="Enter Date of Enlistment" value="{{ $approveOfficer -> date_of_enlistment}}">
-                        <span class="text-danger">@error('date_of_enlistment'){{ $message }} @enderror</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-name">Date of Retirement <span>*</span></label>
-                        <input type="date" name="date_of_retirement" required placeholder="Enter Date of Retirement" value="{{ $approveOfficer -> date_of_retirement}}">
-                        <span class="text-danger">@error('date_of_retirement'){{ $message }} @enderror</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-name">Rank Of Retirement <span>*</span></label>
-                        <input type="text" name="rank_of_retirement" required placeholder="Enter Rank Of Retirement" value="{{ $approveOfficer -> rank_of_retirement}}">
-                        <span class="text-danger">@error('rank_of_retirement'){{ $message }} @enderror</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-name">Station Retired <span>*</span></label>
-                        <input type="text" name="station_retired" required placeholder="Enter Station Retired" value="{{ $approveOfficer -> station_retired}}">
-                        <span class="text-danger">@error('station_retired'){{ $message }} @enderror</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-name">Where To Attend Meeting <span>*</span></label>
-                        <input type="text" name="where_to_attend_meeting" required placeholder="Enter Where To Attend Meeting" value="{{ $approveOfficer -> where_to_attend_meeting}}">
-                        <span class="text-danger">@error('where_to_attend_meeting'){{ $message }} @enderror</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-name">Hometown <span>*</span></label>
-                        <input type="text" name="hometown" required placeholder="Enter HomeTown" value="{{ $approveOfficer -> hometown}}">
-                        <span class="text-danger">@error('hometown'){{ $message }} @enderror</span>
-                    </div>
-                    <div class="form-group">
                         <label for="full-name">Present Place Of Residence <span>*</span></label>
                         <input type="text" name="present_place_of_residence" required placeholder="Enter Present Place Of Residence" value="{{ $approveOfficer -> present_place_of_residence}}">
                         <span class="text-danger">@error('present_place_of_residence'){{ $message }} @enderror</span>
                     </div>
-                    <div class="form-group">
-                        <label for="full-name">Present Occupation (If any) <span></span></label>
-                        <input type="text" name="present_occupation" placeholder="Enter Present Occupation (If any)" value="{{ $approveOfficer -> present_occupation}}">
-                        <span class="text-danger">@error('present_occupation'){{ $message }} @enderror</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-name">Marital Status <span>*</span></label>
-                        <input type="text" name="marital_status" required placeholder="Enter Marital Status" value="{{ $approveOfficer -> marital_status}}">
-                        <span class="text-danger">@error('marital_status'){{ $message }} @enderror</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-name">Next Of Kin <span>*</span></label>
-                        <input type="text" name="next_of_kin" required placeholder="Enter Next Of Kin" value="{{ $approveOfficer -> next_of_kin}}">
-                        <span class="text-danger">@error('next_of_kin'){{ $message }} @enderror</span>
-                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="full-name">Member Signature <span>*</span></label>
-                                <input type="text" name="member_signature" required placeholder="Enter Member Signature" value="{{ $approveOfficer -> member_signature}}">
-                                <span class="text-danger">@error('member_signature'){{ $message }} @enderror</span>
+                                <label for="full-name">Hometown <span>*</span></label>
+                                <input type="text" name="hometown" required placeholder="Enter HomeTown" value="{{ $approveOfficer -> hometown}}">
+                                <span class="text-danger">@error('hometown'){{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -272,9 +221,93 @@
                             </div>
                         </div>
                     </div>
+
+<br>
+<hr>
+<label style="text-align:center;color:red;">Professional Information</label>
+<hr>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="full-name">Date of Enlistment <span>*</span></label>
+                                <input type="date" name="date_of_enlistment" required placeholder="Enter Date of Enlistment" value="{{ $approveOfficer -> date_of_enlistment}}">
+                                <span class="text-danger">@error('date_of_enlistment'){{ $message }} @enderror</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="full-name">Date of Retirement <span>*</span></label>
+                                <input type="date" name="date_of_retirement" required placeholder="Enter Date of Retirement" value="{{ $approveOfficer -> date_of_retirement}}">
+                                <span class="text-danger">@error('date_of_retirement'){{ $message }} @enderror</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="full-name">Rank Of Retirement <span>*</span></label>
+                        <input type="text" name="rank_of_retirement" required placeholder="Enter Rank Of Retirement" value="{{ $approveOfficer -> rank_of_retirement}}">
+                        <span class="text-danger">@error('rank_of_retirement'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="region">Region <span>*</span></label>
+                                <select name="region" id="region" class="form-control"  style="background-color: #fff;">
+                                    <option selected> {{ $approveOfficer -> region }} </option>
+                                    @foreach ($region as $regionItem)
+                                        <option value="{{ $regionItem -> region }}">{{ $regionItem -> region }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger">@error('region'){{ $message }} @enderror</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="district">District <span>*</span></label>
+                                <select name="district" id="district" class="form-control"  style="background-color: #fff;">
+                                    <option selected> {{ $approveOfficer -> district }} </option>
+                                </select>
+                                <span class="text-danger">@error('district'){{ $message }} @enderror</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="full-name">Station Retired <span>*</span></label>
+                        <input type="text" name="station_retired" required placeholder="Enter Station Retired" value="{{ $approveOfficer -> station_retired}}">
+                        <span class="text-danger">@error('station_retired'){{ $message }} @enderror</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="full-name">Where To Attend Meeting <span>*</span></label>
+                        <input type="text" name="where_to_attend_meeting" required placeholder="Enter Where To Attend Meeting" value="{{ $approveOfficer -> where_to_attend_meeting}}">
+                        <span class="text-danger">@error('where_to_attend_meeting'){{ $message }} @enderror</span>
+                    </div>
+
+<br>
+<hr>
+<label style="text-align:center;color:red;">Other Information</label>
+<hr>
+                    <div class="form-group">
+                        <label for="full-name">Present Occupation (If any) <span></span></label>
+                        <input type="text" name="present_occupation" placeholder="Enter Present Occupation (If any)" value="{{ $approveOfficer -> present_occupation}}">
+                        <span class="text-danger">@error('present_occupation'){{ $message }} @enderror</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="full-name">Next Of Kin <span>*</span></label>
+                        <input type="text" name="next_of_kin" required placeholder="Enter Next Of Kin" value="{{ $approveOfficer -> next_of_kin}}">
+                        <span class="text-danger">@error('next_of_kin'){{ $message }} @enderror</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="full-name">Member Signature <span>*</span></label>
+                        <input type="text" name="member_signature" required placeholder="Enter Member Signature" value="{{ $approveOfficer -> member_signature}}">
+                        <span class="text-danger">@error('member_signature'){{ $message }} @enderror</span>
+                    </div>
                     
-                    <br>
-                    <hr>
+<br>
+<hr>
+<label style="text-align:center;color:red;">Official Use</label>
+<hr>
+
                     <input type="text" name="official_id" hidden value="{{ $approveOfficer -> personal_id}}">
                     <div class="form-group">
                         <label for="first-name">Secretary <span>*</span></label>
@@ -296,8 +329,8 @@
                             <input type="text" name="repoag_no" placeholder="Enter REPOAG NO."  required value="{{ $approveOfficer -> repoag_no}}">
                         <span class="text-danger">@error('repoag_no'){{ $message }} @enderror</span>
                     </div>
-                    <br>
-                    <hr>
+<br>
+<hr>
                     <div class="form-group">
                         <label>Status <span>*</span></label>
                         <select name="status">
@@ -319,6 +352,42 @@
     </div>
     </div>
 </div>
-{{-- </div> --}}
+
+<!-- AJAX Script to Fetch Districts Dynamically -->
+<div id="loading" style="display: none;">Loading districts...</div>
+<div id="error" class="text-danger" style="display: none;"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#region').change(function() {
+            var region = $(this).val();
+            $('#loading').show();
+            $('#error').hide();
+            if (region) {
+                $.ajax({
+                    url: '{{ url("/get-districts") }}/' + region,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#district').empty();
+                        $('#district').append('<option selected> -- Choose District -- </option>');
+                        $.each(data, function(key, value) {
+                            $('#district').append('<option value="' + value.district + '">' + value.district + '</option>');
+                        });
+                        $('#loading').hide();
+                    },
+                    error: function() {
+                        $('#loading').hide();
+                        $('#error').text('Failed to load districts. Please try again.').show();
+                    }
+                });
+            } else {
+                $('#district').empty().append('<option selected> -- Choose District -- </option>');
+                $('#loading').hide();
+            }
+        });
+    });
+</script>
+
 
 @endsection

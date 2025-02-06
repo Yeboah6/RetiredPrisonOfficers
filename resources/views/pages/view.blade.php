@@ -94,7 +94,7 @@
                                 </div>
 
                                 <div class="col-md-4 col-xs-12 invoice-client-info">
-                                    <label for="" style="font-weight: bold; font-size:1rem">Branch / Region: </label>
+                                    <label for="" style="font-weight: bold; font-size:1rem">Region: </label>
                                     <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> region}}</p>
                                     <br>
                                     <label for="" style="font-weight: bold; font-size:1rem">District: </label>
@@ -122,7 +122,7 @@
 
                             <hr>
 
-                            {{-- <div class="row invoive-info">
+                            <div class="row invoive-info">
                                 <div class="col-md-4 col-xs-12 invoice-client-info">
                                     <label for="" style="font-weight: bold; font-size:1rem">Secretary: </label>
                                     <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> secretary}}</p>
@@ -140,7 +140,7 @@
                                     <label for="" style="font-weight: bold; font-size:1rem">REPOAG NO.: </label>
                                     <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> repoag_no}}</p>
                                 </div>
-                            </div> --}}
+                            </div>
                             
 
                         </div>
