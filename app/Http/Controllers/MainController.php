@@ -20,7 +20,7 @@ class MainController extends Controller
     
     // Display Dashboard Page Function
     public function dashboard() {
-        $data = array();
+        $data = [];
         if(Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
@@ -53,13 +53,15 @@ class MainController extends Controller
 
     // View All Officers Page Function
     public function officer() {
-        $data = array();
+        $data = [];
         if(Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
 
         $officers = DB::table('personal_infos')
+        -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
         -> join('others', 'personal_infos.id', '=', 'others.personal_id')
+        -> select('personal_infos.id as personal_id', 'personal_infos.*', 'professional_infos.*', 'others.*')
         -> get();
 
         return view('pages.officers', compact('officers', 'data'));
@@ -68,7 +70,7 @@ class MainController extends Controller
     // View Specified Officer Page Function
 
     public function viewOfficer($id) {
-        $data = array();
+        $data = [];
         if (Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId'))->first();
         }
@@ -101,7 +103,7 @@ class MainController extends Controller
 
     // Display Approve Page Function
     public function approveOfficer($id) {
-        $data = array();
+        $data = [];
         if(Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
@@ -118,9 +120,9 @@ class MainController extends Controller
         return view('pages.approve', compact('approveOfficer', 'data', 'district', 'region'));
     }
 
+    // SEND TO KETSI
     // Update Approve Data Function
     public function postApproveOfficer(Request $request, $id) {
-
         $validatedData = $request->validate([
             'official_id' => 'required|string',
             'secretary' => 'required|string|max:255',
@@ -128,68 +130,76 @@ class MainController extends Controller
             'treasury' => 'required|string|max:255',
             'repoag_no' => 'required|string|max:255'
         ]);
-
-        PersonalInfo::where('id', $id)
-            -> update([
-                'full_name' => $request -> input('full_name'),
-                'govt_pension_no' => $request -> input('govt_pension_no'),
-                'prison_svc_no' => $request -> input('prison_svc_no'),
-                'residential_address' => $request -> input('residential_address'),
-                'postal_address' => $request -> input('postal_address'),
-                'telephone' => $request -> input('telephone'),
-                'ghana_card_no' => $request -> input('ghana_card_no'),
-                'sex' => $request -> input('sex'),
-                'present_age' => $request -> input('present_age'),
-                'hometown' => $request -> input('hometown'),
-                'present_place_of_residence' => $request -> input('present_place_of_residence'),
-                'marital_status' => $request -> input('marital_status'),
-                'email' => $request -> input('email'),
-                'stat' => $request -> input('stat'),
-            ]);
-
-            ProfessionalInfo::where('personal_id', $id)
-                -> update([
-                    'date_of_enlistment' => $request -> input('date_of_enlistment'),
-                    'date_of_retirement' => $request -> input('date_of_retirement'),
-                    'rank_of_retirement' => $request -> input('rank_of_retirement'),
-                    'station_retired' => $request -> input('station_retired'),
-                    'region' => $request -> input('region'),
-                    'district' => $request -> input('district'),
-                    'where_to_attend_meeting' => $request -> input('where_to_attend_meeting'),
-            ]);
-
-            Others::where('personal_id', $id)
-                -> update([
-                    'present_occupation' => $request -> input('present_occupation'),
-                    'next_of_kin' => $request -> input('next_of_kin'),
-                    'member_signature' => $request -> input('member_signature'),
-                    'status' => $request -> input('status'),
-
-                    'secretary' => $validatedData['secretary'],
-                    'chairman' => $validatedData['chairman'],
-                    'treasury' => $validatedData['treasury'],
-                    'repoag_no' => $validatedData['repoag_no']
-                ]);
-
-                if ($request -> input('status') === "Approved") {
-                    $personalInfo = PersonalInfo::findOrFail($id);
-
-                    // Send email
-                    Mail::to($personalInfo -> email)->send(new SendMail($personalInfo));
-            
-                    return redirect('/officers')->with('success', 'Officer approved and email sent successfully.');
-                }
-            return redirect('/officers');
+    
+        $personalInfoUpdate = array_filter([
+            'full_name' => $request->input('full_name'),
+            'govt_pension_no' => $request->input('govt_pension_no'),
+            'prison_svc_no' => $request->input('prison_svc_no'),
+            'residential_address' => $request->input('residential_address'),
+            'postal_address' => $request->input('postal_address'),
+            'telephone' => $request->input('telephone'),
+            'ghana_card_no' => $request->input('ghana_card_no'),
+            'sex' => $request->input('sex'),
+            'present_age' => $request->input('present_age'),
+            'hometown' => $request->input('hometown'),
+            'present_place_of_residence' => $request->input('present_place_of_residence'),
+            'marital_status' => $request->input('marital_status'),
+            'email' => $request->input('email'),
+            'stat' => $request->input('stat'),
+        ], fn($value) => !is_null($value));
+    
+        if (!empty($personalInfoUpdate)) {
+            PersonalInfo::where('id', $id)->update($personalInfoUpdate);
+        }
+    
+        $professionalInfoUpdate = array_filter([
+            'date_of_enlistment' => $request->input('date_of_enlistment'),
+            'date_of_retirement' => $request->input('date_of_retirement'),
+            'rank_of_retirement' => $request->input('rank_of_retirement'),
+            'station_retired' => $request->input('station_retired'),
+            'region' => $request->input('region'),
+            'district' => $request->input('district'),
+            'where_to_attend_meeting' => $request->input('where_to_attend_meeting'),
+        ], fn($value) => !is_null($value));
+    
+        if (!empty($professionalInfoUpdate)) {
+            ProfessionalInfo::where('personal_id', $id)->update($professionalInfoUpdate);
+        }
+    
+        $othersUpdate = array_filter([
+            'present_occupation' => $request->input('present_occupation'),
+            'next_of_kin' => $request->input('next_of_kin'),
+            'member_signature' => $request->input('member_signature'),
+            'status' => $request->input('status'),
+            'secretary' => $validatedData['secretary'],
+            'chairman' => $validatedData['chairman'],
+            'treasury' => $validatedData['treasury'],
+            'repoag_no' => $validatedData['repoag_no']
+        ], fn($value) => !is_null($value));
+    
+        if (!empty($othersUpdate)) {
+            Others::where('personal_id', $id)->update($othersUpdate);
+        }
+    
+        if ($request->input('status') === "Approved") {
+            $personalInfo = PersonalInfo::findOrFail($id);
+            Mail::to($personalInfo->email)->send(new SendMail($personalInfo));
+            return redirect('/officers')->with('success', 'Officer approved and email sent successfully.');
+        }
+    
+        return redirect('/officers');
     }
 
     // Generate Report Function
     public function report(Request $request) {
-        $data = array();
+        $data = [];
         if(Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
 
-        $getYear = ProfessionalInfo::select('date_of_retirement') -> distinct() -> get(date('Y'));
+        // $getYear = ProfessionalInfo::select('date_of_retirement') -> distinct() -> get(date('Y'));
+        $getYear = ProfessionalInfo::select(DB::raw('DISTINCT YEAR(date_of_retirement) as retirement_year'))
+                ->pluck('retirement_year');
         //  ('year', date('Y'));
     
         $serviceId = PersonalInfo::select('prison_svc_no') -> distinct() -> get();
@@ -206,6 +216,7 @@ class MainController extends Controller
         $query = DB::table('personal_infos')
             ->join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
             ->join('others', 'personal_infos.id', '=', 'others.personal_id')
+            -> select('personal_infos.id as personal_id', 'personal_infos.*', 'professional_infos.*', 'others.*')
 
             ->when($region, function($query, $region) {
                 return $query->where('region', 'LIKE', "%{$region}%");
@@ -233,7 +244,7 @@ class MainController extends Controller
 
     // Display Regions & District Page Function
     public function region() {
-        $data = array();
+        $data = [];
         if(Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
@@ -245,7 +256,7 @@ class MainController extends Controller
 
     // Display Add Region Page Function
     public function addRegion() {
-        $data = array();
+        $data = [];
         if(Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
@@ -274,7 +285,7 @@ class MainController extends Controller
 
     // Display Region Edit Page Function
     public function editRegion($id) {
-        $data = array();
+        $data = [];
         if(Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
@@ -312,7 +323,7 @@ class MainController extends Controller
     }
 
     public function periodicReport() {
-        $data = array();
+        $data = [];
         if(Session::has('loginId')) {
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }

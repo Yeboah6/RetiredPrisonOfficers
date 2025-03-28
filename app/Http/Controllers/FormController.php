@@ -27,6 +27,7 @@ class FormController extends Controller
     public function postPersonalInfo(Request $request) {
         $validatedData = $request->validate([
             'full_name' => 'required|string',
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,svg|max:5048',
             'govt_pension_no' => 'required|string|max:255',
             'prison_svc_no' => 'required|string|max:255',
             'residential_address' => 'required|string|max:255',
@@ -71,6 +72,15 @@ class FormController extends Controller
             'stat' => $validatedData['stat']
         ]);
 
+        if($file = $request -> hasFile('image')) {
+         
+            $file = $request -> file('image');
+            $fileName = 'IM_'.$file -> getClientOriginalName();
+            $destinationPath = public_path().'/uploads/Officer-images/';
+            $file -> move($destinationPath,$fileName);
+            $personalInfo -> image = $fileName;
+        }
+
         // Save the personal information
         if ($personalInfo -> save()) {
             // Store the personal_info_id in the session if save is successful
@@ -97,7 +107,10 @@ class FormController extends Controller
 
     // Update Personal Info Page Function
     public function postEditPersonalInfo(Request $request, $id) {
-        $validatedData = $request->validate([
+        $editPersonalInfo = PersonalInfo::findOrFail($id);
+    
+        // Define validation rules
+        $rules = [
             'full_name' => 'required|string',
             'govt_pension_no' => 'required|string|max:255',
             'prison_svc_no' => 'required|string|max:255',
@@ -112,33 +125,40 @@ class FormController extends Controller
             'marital_status' => 'required|string|max:255',
             'email' => 'email|max:255',
             'stat' => 'required|max:255'
-        ],
-        [
+        ];
+    
+        // Only require image if there isn't already one saved in the database
+        if (!$editPersonalInfo->image) {
+            $rules['image'] = 'required|file|mimes:jpeg,png,jpg,svg|max:5048';
+        } else {
+            $rules['image'] = 'nullable|file|mimes:jpeg,png,jpg,svg|max:5048';
+        }
+    
+        // Validate the request data
+        $validatedData = $request->validate($rules, [
             'present_age.min' => 'Age must be at least 60 years.'
         ]);
-
-        $editPersonalInfo = PersonalInfo::findOrFail($id);
-
-        $editPersonalInfo -> fill([
-            'full_name' => $validatedData['full_name'],
-            'govt_pension_no' => $validatedData['govt_pension_no'],
-            'prison_svc_no' => $validatedData['prison_svc_no'],
-            'residential_address' => $validatedData['residential_address'],
-            'postal_address' => $validatedData['postal_address'],
-            'telephone' => $validatedData['telephone'],
-            'ghana_card_no' => $validatedData['ghana_card_no'],
-            'sex' => $validatedData['sex'],
-            'present_age' => $validatedData['present_age'],
-            'hometown' => $validatedData['hometown'],
-            'present_place_of_residence' => $validatedData['present_place_of_residence'],
-            'marital_status' => $validatedData['marital_status'],
-            'email' => $validatedData['email'],
-            'stat' => $validatedData['stat']
-        ]);
-
-        $editPersonalInfo -> update();
-        return redirect('/edit-professional-info/'.$editPersonalInfo -> id);
+    
+        // Update the personal info
+        $editPersonalInfo->fill($validatedData);
+    
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = 'IM_'.$file->getClientOriginalName();
+            $destinationPath = public_path('/uploads/Officer-images/');
+            $file->move($destinationPath, $fileName);
+    
+            // Assign new image
+            $editPersonalInfo->image = $fileName;
+        }
+    
+        // Save the updated data
+        $editPersonalInfo->save();
+    
+        return redirect('/edit-professional-info/' . $editPersonalInfo->id);
     }
+    
 
     // Display Professional Info Page Function 
     public function professionalInfo() {

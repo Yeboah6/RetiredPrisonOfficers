@@ -60,7 +60,7 @@
                 <div class="card bg-c-red text-white widget-visitor-card">
                     <div class="card-body text-center">
                         <h2 class="text-white">{{ $regions }}</h2>
-                        <h6 class="text-white">Registered</h6>
+                        <h6 class="text-white">Regions</h6>
                         <i class="feather icon-map-pin"></i>
                     </div>
                 </div>

@@ -11,6 +11,7 @@ class PersonalInfo extends Model
     protected $fillable = [
         'reg_id',
         'full_name',
+        'image',
         'govt_pension_no',
         'prison_svc_no',
         'residential_address',

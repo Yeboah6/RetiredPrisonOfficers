@@ -16,6 +16,7 @@ return new class extends Migration
             $table -> string('reg_id') -> nullable();
 
             $table -> string('full_name') -> nullable();
+            $table -> string('image') -> nullable();
             $table -> string('govt_pension_no') -> nullable();
             $table -> string('prison_svc_no') -> nullable();
             $table -> string('residential_address') -> nullable();

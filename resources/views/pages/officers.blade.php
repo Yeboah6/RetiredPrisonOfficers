@@ -34,21 +34,20 @@
                         <h5>Officers List </h5>
                     </div>
                     <div class="card-body">
-                        <div class="row align-items-center m-l-0">
-                            <div class="col-sm-6">
-                            </div>
+                        {{-- <div class="row align-items-center m-l-0"> --}}
                             @if (Session::has('success'))
                                 <div class="alert alert-success" style="text-align: center;">{{ Session::get('success') }}</div>
                             @endif
                             @if (Session::has('fail'))
                                 <div class="alert alert-danger" style="text-align: center;">{{ Session::get('fail') }}</div>
                             @endif
-                        </div>
+                        {{-- </div> --}}
                         <div class="table-responsive">
                             <table id="report-table" class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
                                         <th>REG ID</th>
+                                        <th>Image</th>
                                         <th>Name</th>
                                         <th>Number</th>
                                         <th>Gov't Pension No</th>
@@ -64,6 +63,7 @@
                                         @foreach ($officers as $officer)
                                         <tr>
                                         <td>{{ $officer -> reg_id}}</td>
+                                        <td style="text-align: center"><img src="{{ asset('../uploads/Officer-images/'.$officer -> image) }}" alt="Applicant_image" style="border-radius:30px;width:40%;"></td>
                                         <td>{{ $officer -> full_name}}</td>
                                         <td>{{ $officer -> telephone}}</td>
                                         <td>{{ $officer -> govt_pension_no}}</td>
@@ -79,10 +79,10 @@
                                         @endif
                                         
                                         <td>
-                                            <a href="{{ url ('/view/'.$officer -> id)}}" class="btn btn-warning btn-sm">View</a>
-                                            <a href="{{ url ('/edit-personal-info/'.$officer -> id)}}" class="btn btn-info btn-sm">Edit</a>
-                                            <a href="{{ url ('/approve/'.$officer -> id)}}" class="btn btn-success btn-sm">Approve</a>
-                                            <a href="{{ url ('/delete/'.$officer -> id)}}" class="btn btn-danger btn-sm">Delete</a>
+                                            <a href="{{ url('/view/'.$officer -> personal_id)}}" class="btn btn-warning btn-sm">View</a>
+                                            <a href="{{ url('/edit-personal-info/'.$officer -> personal_id)}}" class="btn btn-info btn-sm">Edit</a>
+                                            <a href="{{ url('/approve/'.$officer -> personal_id)}}" class="btn btn-success btn-sm">Approve</a>
+                                            <a href="{{ url('/delete/'.$officer -> personal_id)}}" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
                                         @endforeach

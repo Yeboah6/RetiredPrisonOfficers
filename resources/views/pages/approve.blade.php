@@ -113,6 +113,32 @@
                             <input type="text" name="full_name" placeholder="Enter Full Name" value="{{ $approveOfficer -> full_name}}">
                         <span class="text-danger">@error('full_name'){{ $message }} @enderror</span>
                     </div>
+                    <div class="form-group">
+                        <label for="first-name">Upload Picture @if(!$approveOfficer->image)<span>*</span>@endif</label>
+                        <input type="file" 
+                               name="image" 
+                               @if(!$approveOfficer->image) required @endif 
+                               @if($approveOfficer->image) value="{{ 'uploads/Officer-images/' . $approveOfficer->image }}" @endif>
+                        <br><br>
+                        @if($approveOfficer && $approveOfficer->image)
+                            <!-- Show the preview of the uploaded image -->
+                            <img src="{{ asset('uploads/Officer-images/' . $approveOfficer->image) }}" 
+                                 style="width:30%; border-radius: 80px;" 
+                                 alt="Officer Image">
+                            <p class="text-muted small">Current image will be kept if no new image is uploaded</p>
+                        @endif
+                        <span class="text-danger">@error('image'){{ $message }}@enderror</span>
+                    </div>
+                    {{-- <div class="form-group">
+                        <label for="first-name">Upload Picture <span>*</span></label>
+                            <input type="file" name="image" required value="{{'uploads/Officer-images/' . $approveOfficer -> image}}">
+                            <br><br>
+                        @if($approveOfficer && $approveOfficer -> image)
+                            <!-- Show the preview of the uploaded image -->
+                            <img src="{{ asset('uploads/Officer-images/' . $approveOfficer -> image) }}" style="width:30%;border-radius: 80px;"  alt="Officer Image">
+                        @endif
+                        <span class="text-danger">@error('image'){{ $message }} @enderror</span>
+                    </div> --}}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

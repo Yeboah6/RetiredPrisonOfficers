@@ -88,7 +88,7 @@
         <div class="col-md-6 offset-md-3">
             <h2 class="form-title">Registration Form</h2>
 
-            <form action="{{url('/edit-personal-info/'.$editPersonalInfo -> id)}}" method="POST">
+            <form action="{{url('/edit-personal-info/'.$editPersonalInfo -> id)}}" method="POST" enctype="multipart/form-data">
                 @if (Session::has('success'))
 				    	<div class="alert alert-success" style="text-align: center;">{{ Session::get('success') }}</div>
 				    @endif
@@ -108,6 +108,26 @@
                             <input type="text" name="full_name" placeholder="Enter Full Name"  required value="{{ $editPersonalInfo -> full_name}}">
                         <span class="text-danger">@error('full_name'){{ $message }} @enderror</span>
                     </div>
+                    <div class="form-group">
+    <label for="first-name">Upload Picture 
+        @if(!$editPersonalInfo || !$editPersonalInfo->image) 
+            <span>*</span> 
+        @endif
+    </label>
+    <input type="file" name="image" @if(!$editPersonalInfo || !$editPersonalInfo->image) required @endif>
+    <br><br>
+
+    @if($editPersonalInfo && $editPersonalInfo->image)
+        <!-- Show the preview of the uploaded image -->
+        <img src="{{ asset('uploads/Officer-images/' . $editPersonalInfo->image) }}" 
+             style="width:30%;border-radius: 80px;"  
+             alt="Officer Image">
+    @endif
+
+    <span class="text-danger">@error('image'){{ $message }} @enderror</span>
+</div>
+
+                    <br>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

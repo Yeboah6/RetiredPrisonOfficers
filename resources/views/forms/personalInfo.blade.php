@@ -89,8 +89,8 @@
         <div class="col-md-6 offset-md-3">
             <h2 class="form-title">Registration Form</h2>
 
-            <form action="{{url('/personal-info')}}" method="POST">
-                @if (Session::has('success'))
+            <form action="{{url('/personal-info')}}" method="POST" enctype="multipart/form-data">
+                    @if (Session::has('success'))
 				    	<div class="alert alert-success" style="text-align: center;">{{ Session::get('success') }}</div>
 				    @endif
 				    @if (Session::has('fail'))
@@ -108,6 +108,11 @@
                         <label for="first-name">Full Name <span>*</span></label>
                             <input type="text" name="full_name" placeholder="Enter Full Name"  required value="{{old('full_name')}}">
                         <span class="text-danger">@error('full_name'){{ $message }} @enderror</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="first-name">Upload Picture <span>*</span></label>
+                            <input type="file" name="image" placeholder="Enter Full Name"  required>
+                        <span class="text-danger">@error('image'){{ $message }} @enderror</span>
                     </div>
                     <div class="row">
                         <div class="col-md-6">

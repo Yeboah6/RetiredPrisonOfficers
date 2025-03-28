@@ -42,6 +42,10 @@
                         @foreach ($viewOfficer as $viewOfficer)
                         
                         <h3 style="text-align:center">{{ $viewOfficer -> reg_id }}</h3>
+                        <div style="text-align:center">
+                         <img src="{{ asset('../uploads/Officer-images/'.$viewOfficer -> image) }}" alt="Officer_image" style="border-radius:30px;width:20%;">
+                        </div>
+                       
                         <div class="card-body">
                             <div class="row invoive-info">
                                 <div class="col-md-4 col-xs-12 invoice-client-info">
@@ -56,6 +60,9 @@
                                     <br>
                                     <label for="" style="font-weight: bold; font-size:1rem">Telephone: </label>
                                     <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> telephone}}</p>
+                                    <br>
+                                    <label for="" style="font-weight: bold; font-size:1rem">Email: </label>
+                                    <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> email}}</p>
                                     <br>
                                     <label for="" style="font-weight: bold; font-size:1rem">Ghana Card No.: </label>
                                     <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> ghana_card_no}}</p>
