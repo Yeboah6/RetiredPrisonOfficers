@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\Mails;
 use App\Mail\SendMail;
 use App\Models\Districts;
+use App\Models\UserLoginLog;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class MainController extends Controller
@@ -46,6 +48,106 @@ class MainController extends Controller
 
         return view('pages.dashboard', compact( 'data', 'regions', 'registered', 'pending', 'approve'));
     }
+
+    public function superAdmin() {
+        $data = [];
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
+
+         $regions = Districts::all() -> count();
+         $users = SignIn::where('role', 'regional_admin') -> count();
+
+        $registered = DB::table('personal_infos')
+        -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
+        -> join('others', 'personal_infos.id', '=', 'others.personal_id')
+        -> count();
+
+        $pending = DB::table('personal_infos')
+        -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
+        -> join('others', 'personal_infos.id', '=', 'others.personal_id')
+        -> where('others.status', "Pending")
+        -> count();
+
+        $approve = DB::table('personal_infos')
+        -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
+        -> join('others', 'personal_infos.id', '=', 'others.personal_id')
+        -> where('others.status', "Approved")
+        -> count();
+
+        return view('pages.admin.superior-admin', compact('data', 'registered', 'users', 'pending', 'approve', 'regions'));
+    }
+
+    public function manageUsers() {
+        $data = [];
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
+
+        $users = SignIn::all();
+
+        return view('pages.admin.users', compact('data', 'users'));
+    }
+
+    public function addUsers() {
+        $data = [];
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
+
+        $region = Districts::all();
+
+        return view('pages.admin.add-user', compact('data', 'region'));
+    }
+
+    public function postAddUsers(Request $request) {
+        $validatedData = $request -> validate([
+            'email' => 'required|email|unique:sign_ins',
+            'password' => 'required|min:8|max:12',
+            'region' => 'required|string',
+            'role' => 'required|string',
+            'status' => 'required|string'
+        ]);
+
+        $addUser = new SignIn();
+
+        $addUser -> fill([
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'region' => $validatedData['region'],
+            'role' => $validatedData['role'],
+            'status' => $validatedData['status'],
+        ]);
+
+        $addUser -> save();
+        return redirect('/super-admin/users') -> with('success', 'User Added Successfully');
+    }
+
+    public function getUserLogs(Request $request) {
+        $data = [];
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
+
+    // Only super admin can access this
+    if (session('userRole') !== 'super_admin') {
+        return redirect('/unauthorized');
+    }
+    
+    $logs = DB::table('user_login_logs')
+        ->join('sign_ins', 'user_login_logs.user_id', '=', 'sign_ins.id')
+        ->select(
+            'sign_ins.email',
+            'sign_ins.role',
+            'user_login_logs.login_time',
+            'user_login_logs.ip_address',
+            'user_login_logs.user_agent'
+        )
+        ->orderBy('user_login_logs.login_time', 'desc')
+        ->paginate(20);
+    
+    return view('pages.admin.user-logs', compact('logs', 'data'));
+}
 
     public function preview() {
         return view('pages.preview');
@@ -397,5 +499,13 @@ class MainController extends Controller
         // Return PDF download
         return $pdf->download($fileName);
     }
+
+    // public function All() {
+    //     $data = [];
+    //     if(Session::has('loginId')) {
+    //         $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+    //     }
+    //     return view('pages.dashboard', compact('data'));
+    // }
  
 }

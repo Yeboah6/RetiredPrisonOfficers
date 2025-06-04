@@ -17,12 +17,28 @@
 					<li class="nav-item pcoded-menu-caption">
 						<label>Navigation</label>
 					</li>
-					<li class="nav-item">
-						<a href="/dashboard" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+					@if (App\Helpers\RoleHelper::isSuperAdmin())
+						<li class="nav-item">
+						<a href="/super-admin/dashboard" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
 					</li>
-					<li class="nav-item">
-						<a href="/region" class="nav-link "><span class="pcoded-micon"><i class="feather icon-map-pin"></i></span><span class="pcoded-mtext">Region & District</span></a>
-					</li>
+					@else
+						<li class="nav-item">
+							<a href="/dashboard" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+						</li>
+					@endif
+					
+					@if(App\Helpers\RoleHelper::isSuperAdmin())
+						<li class="nav-item">
+							<a href="/region" class="nav-link "><span class="pcoded-micon"><i class="feather icon-map-pin"></i></span><span class="pcoded-mtext">Region & District</span></a>
+						</li>
+						<li class="nav-item">
+							<a href="/super-admin/users" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">User</span></a>
+						</li>
+						<li class="nav-item">
+							<a href="/super-admin/user-logs" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">User Logs</span></a>
+						</li>
+					@endif
+					
 					<li class="nav-item">
 						<a href="/personal-info" class="nav-link "><span class="pcoded-micon"><i class="feather icon-edit-1"></i></span><span class="pcoded-mtext">Registration Forms</span></a>
 					</li>

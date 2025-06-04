@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table -> string('email');
             $table -> string('password');
+            $table -> string('role') -> default('regional_admin');
+            $table -> string('region');
+            $table -> string('status') -> default('inactive');
             $table->timestamps();
         });
     }

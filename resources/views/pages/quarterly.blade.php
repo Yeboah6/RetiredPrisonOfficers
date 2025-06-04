@@ -21,7 +21,6 @@
             <thead>
                 <tr>
                     <th>REG ID</th>
-                    <th>Image</th>
                     <th>Name</th>
                     <th>Number</th>
                     <th>Gov't Pension No</th>
@@ -32,21 +31,18 @@
                 </tr>
             </thead>
             <tbody>
-                
-                    @foreach ($transactions as $transaction)
+                @foreach ($transactions as $transaction)
                     <tr>
-                    <td>{{ $transaction -> reg_id}}</td>
-                    <td style="text-align: center"><img src="{{ asset('../uploads/Officer-images/'.$transaction -> image) }}" alt="Applicant_image" style="border-radius:30px;width:40%;"></td>
-                    <td>{{ $transaction -> full_name}}</td>
-                    <td>{{ $transaction -> telephone}}</td>
-                    <td>{{ $transaction -> govt_pension_no}}</td>
-                    <td>{{ $transaction -> sex}}</td>
-                    <td>{{ $transaction -> prison_svc_no}}</td>
-                    <td>{{ $transaction -> residential_address}}</td>
-                   <td>{{ $transaction->formatted_date }}</td>
-                </tr>
-                    @endforeach
-                
+                        <td>{{ $transaction -> reg_id}}</td>
+                        <td>{{ $transaction -> full_name}}</td>
+                        <td>{{ $transaction -> telephone}}</td>
+                        <td>{{ $transaction -> govt_pension_no}}</td>
+                        <td>{{ $transaction -> sex}}</td>
+                        <td>{{ $transaction -> prison_svc_no}}</td>
+                        <td>{{ $transaction -> residential_address}}</td>
+                        <td>{{ $transaction->formatted_date }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -14,7 +14,16 @@ Route::post('/profile', [AuthController::class, 'postProfile']) -> name('profile
 
 Route::get('/logout', [AuthController::class, 'logout']) -> name('logout');
 
-Route::get('/dashboard', [MainController::class, 'dashboard']) -> name('dashboard') -> middleware('isLoggedIn');
+Route::get('/dashboard', [MainController::class, 'dashboard']) -> name('dashboard') -> middleware('role');
+
+// Super Admin only routes
+Route::middleware(['role:super_admin'])->group(function () {
+    Route::get('/super-admin/dashboard', [MainController::class, 'superAdmin']);
+    Route::get('/super-admin/user-logs', [MainController::class, 'getUserLogs']);
+    Route::get('/super-admin/users', [MainController::class, 'manageUsers']);
+    Route::get('/super-admin/add-users', [MainController::class, 'addUsers']);
+    Route::post('/super-admin/add-users', [MainController::class, 'postAddUsers']) -> name('add.user');
+});
 
 Route::get('/region', [MainController::class, 'region']) -> name('region') -> middleware('isLoggedIn');
 
@@ -71,3 +80,5 @@ Route::get('/quarterly-report', [MainController::class, 'generateQuarterlyReport
 Route::get('/periodic-report', [MainController::class, 'periodicReport'])->name('periodic.report');
 
 Route::get('/generate-quarterly-report', [MainController::class, 'newGenerateQuarterlyReport'])->name('quarterly.report');
+
+Route::get('/etdkf', [MainController::class, 'All']);

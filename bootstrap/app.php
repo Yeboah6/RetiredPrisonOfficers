@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'isLoggedIn' => \App\Http\Middleware\AuthCheck::class,
             'alreadyLoggedIn' => \App\Http\Middleware\AlreadyLoggedIn::class,
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

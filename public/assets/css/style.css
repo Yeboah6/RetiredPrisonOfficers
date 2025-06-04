@@ -576,6 +576,7 @@ button::-moz-focus-inner,
 }
 
 input[type="radio"],
+input[type="password"],
 input[type="checkbox"] {
     box-sizing: border-box;
     padding: 0;

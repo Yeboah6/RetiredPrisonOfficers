@@ -29,7 +29,7 @@
         <!-- [ Main Content ] start -->
         <div class="row">
             <!-- visitors  start -->
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div class="card bg-c-green text-white widget-visitor-card" style="background-color:#4680FF;">
                     <div class="card-body text-center">
                         <h2 class="text-white">{{ $registered }}</h2>
@@ -38,16 +38,16 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-sm-3">
+            <div class="col-sm-3">
                 <div class="card bg-c-yellow text-white widget-visitor-card">
                     <div class="card-body text-center">
-                        <h2 class="text-white">{{ $pending }}</h2>
-                        <h6 class="text-white">Pending</h6>
+                        <h2 class="text-white">{{ $users }}</h2>
+                        <h6 class="text-white">Regional Admin</h6>
                         <i class="feather icon-user-minus"></i>
                     </div>
                 </div>
-            </div> --}}
-            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-3">
                 <div class="card bg-c-green text-white widget-visitor-card">
                     <div class="card-body text-center">
                         <h2 class="text-white">{{ $approve }}</h2>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div class="card bg-c-red text-white widget-visitor-card">
                     <div class="card-body text-center">
                         <h2 class="text-white">{{ $regions }}</h2>

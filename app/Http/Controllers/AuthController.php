@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SignIn;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -24,16 +25,54 @@ class AuthController extends Controller
 
         $user = SignIn::where('email', '=', $request -> email) -> first();
         if($user) {
+             // Check if account is active
+            if($user->status !== 'active') {
+                return back()->with('fail', 'Your account is inactive. Please contact administrator!');
+            }
+
             if(Hash::check($request -> password, $user -> password)) {
-                $request -> session() -> put('loginId', $user -> id);
-                return redirect('/dashboard') -> with('success', 'Logged In Successfull!!');
+
+                if(isset($user -> role) && !empty($user -> role)) {
+                    $allowedRoles = ['super_admin', 'regional_admin'];
+
+                    if(in_array($user -> role, $allowedRoles)) {
+                         // Log the login activity for super admin tracking
+                        $this->logUserActivity($user->id, $request);
+
+                        $request -> session() -> put('loginId', $user -> id);
+                        $request -> session() -> put('userRole', $user -> role);
+
+                        switch($user -> role) {
+                            case 'super_admin':
+                                return redirect('/super-admin/dashboard') ->with ('success', 'Welcome Super Admin!');
+                            case 'regional_admin':
+                                return redirect('/dashboard') -> with('success', 'Welcome Regional Admin!');
+                        }
+                    } else {
+                        return back()->with('fail', 'Your account role is not authorized to access this portal!');
+                    }
+                } else {
+                    return back()->with('fail', 'No role assigned to your account. Please contact administrator!');
+                }
             } else {
-                return back() -> with('fail', 'Incorrect Credentials!!');
+                return back()->with('fail', 'Incorrect Credentials!');
             } 
         } else {
             return back() -> with('fail', 'You do not access to this portal!!');
         }
     }
+
+    // Log user login activity for super admin tracking
+private function logUserActivity($userId, $request) {
+    DB::table('user_login_logs')->insert([
+        'user_id' => $userId,
+        'login_time' => now(),
+        'ip_address' => $request->ip(),
+        'user_agent' => $request->userAgent(),
+        'created_at' => now(),
+        'updated_at' => now()
+    ]);
+}
 
     // Log out Function
     public function logout() {

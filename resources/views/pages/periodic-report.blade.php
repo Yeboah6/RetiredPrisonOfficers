@@ -30,6 +30,7 @@
     @media screen and (max-width: 1850px) {
         .btn-invoice {
             margin-top: -50px;
+            margin-left: 900px;
         }
     }
 

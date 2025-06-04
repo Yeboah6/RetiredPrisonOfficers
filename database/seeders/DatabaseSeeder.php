@@ -15,11 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
         \App\Models\SignIn::create([
-            'email' => 'admin@retired.com',
+            'email' => 'super@admin.com',
             'password' => Hash::make('1234567890'),
+            'role' => 'super_admin',
+            'region' => 'All',
+            'status' => 'active'
         ]);
     }
 }
