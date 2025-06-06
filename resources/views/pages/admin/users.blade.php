@@ -52,22 +52,18 @@
                         <a class="btn link-bttn" href="/super-admin/add-users">Add</a>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            {{-- <div class="col-sm-6">
-                            </div> --}}
                             @if (Session::has('success'))
                                 <div class="alert alert-success" style="text-align: center;">{{ Session::get('success') }}</div>
                             @endif
                             @if (Session::has('fail'))
                                 <div class="alert alert-danger" style="text-align: center;">{{ Session::get('fail') }}</div>
                             @endif
-                        </div>
                         <div class="table-responsive">
                             <table id="report-table" class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        {{-- <th>User</th> --}}
+                                        <th>Name</th>
                                         <th>Email</th>
                                         <th>Role</th>
                                         <th>Region</th>
@@ -80,6 +76,7 @@
                                         @foreach ($users as $user)
                                         <tr>
                                         <td>{{ $user -> id}}</td>
+                                        <td>{{ $user -> name}}</td>
                                         <td>{{ $user -> email}}</td>
                                         @if ($user -> role == 'super_admin')
                                             <td>Super Admin</td>
@@ -87,15 +84,15 @@
                                             <td>Admin</td>
                                         @endif
                                         <td>{{ $user -> region}}</td>
-                                        @if ($user -> status == 'active')
+                                        @if ($user -> status == 'Active')
                                             <td style="text-align:center;"><span class="badge bg-success" >{{ $user -> status}}</span></td>
                                         @else
                                             <td style="text-align:center;"><span class="badge bg-danger" >{{ $user -> status}}</span></td>
                                         @endif
                                         
                                         <td>
-                                            {{-- <a href="{{ url ('/edit-region/'.$region -> id)}}" class="btn btn-info btn-sm">Edit</a> --}}
-                                            {{-- <a href="{{ url ('/delete-region/'.$region -> id)}}" class="btn btn-danger btn-sm">Delete</a> --}}
+                                            <a href="{{ url ('/super-admin/edit-users/'.$user -> id)}}" class="btn btn-info btn-sm">Edit</a>
+                                            <a href="{{ url ('/super-admin/delete-user/'.$user -> id)}}" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
                                         @endforeach

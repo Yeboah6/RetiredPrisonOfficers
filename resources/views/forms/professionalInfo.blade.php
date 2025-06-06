@@ -107,7 +107,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="full-name">Date of Enlistment <span>*</span></label>
-                                <input type="date" name="date_of_enlistment" required placeholder="Enter Date of Enlistment" min="1990-06-02" max="2001-06-08">
+                                <input type="date" name="date_of_enlistment" required placeholder="Enter Date of Enlistment">
                                 <span class="text-danger">@error('date_of_enlistment'){{ $message }} @enderror</span>
                             </div>
                         </div>

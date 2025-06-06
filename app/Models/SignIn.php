@@ -9,6 +9,7 @@ class SignIn extends Model
     protected $table = 'sign_ins';
 
     protected $fillable = [
+        'name',
         'email',
         'password',
         'role',

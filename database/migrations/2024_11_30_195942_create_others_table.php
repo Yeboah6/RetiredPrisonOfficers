@@ -19,6 +19,7 @@ return new class extends Migration
             $table -> string('present_occupation') -> nullable();
             $table -> string('next_of_kin') -> nullable();
             $table -> string('member_signature') -> nullable();
+            $table -> string('added_by');
             $table -> string('status') -> nullable();
             
             $table -> string('secretary') -> nullable();

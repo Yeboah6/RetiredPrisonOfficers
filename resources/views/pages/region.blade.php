@@ -52,16 +52,16 @@
                         <a class="btn link-bttn" href="/add-region">Add</a>
                     </div>
                     <div class="card-body">
-                        <div class="row align-items-center m-l-0">
-                            <div class="col-sm-6">
-                            </div>
+                        {{-- <div class="row align-items-center m-l-0"> --}}
+                            {{-- <div class="col-sm-6"> --}}
+                            {{-- </div> --}}
                             @if (Session::has('success'))
                                 <div class="alert alert-success" style="text-align: center;">{{ Session::get('success') }}</div>
                             @endif
                             @if (Session::has('fail'))
                                 <div class="alert alert-danger" style="text-align: center;">{{ Session::get('fail') }}</div>
                             @endif
-                        </div>
+                        {{-- </div> --}}
                         <div class="table-responsive">
                             <table id="report-table" class="table table-bordered table-striped mb-0">
                                 <thead>

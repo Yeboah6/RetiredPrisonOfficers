@@ -72,6 +72,7 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th width="5%">#</th>
+                                        <th width="25%">Name</th>
                                         <th width="25%">Email</th>
                                         <th width="15%">Role</th>
                                         <th width="20%">Login Time</th>
@@ -83,6 +84,9 @@
                                     @foreach($logs as $index => $log)
                                         <tr>
                                             <td>{{ $logs->firstItem() + $index }}</td>
+                                            <td>
+                                                <strong>{{ $log->name }}</strong>
+                                            </td>
                                             <td>
                                                 <strong>{{ $log->email }}</strong>
                                             </td>

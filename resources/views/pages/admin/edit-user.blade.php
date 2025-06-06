@@ -81,34 +81,45 @@
     <div class="row" style="margin-top: -110px;">
         <div class="col-md-6 offset-md-3">
 
-            <form action="{{route('add.user')}}" method="POST">
+            <form action="{{url('super-admin/edit-users/'.$editUser -> id)}}" method="POST">
 
                 @csrf
 
                 <fieldset id="personal">
 
-                    <legend>User</legend>
+                    <legend>Edit User</legend>
 
-                    <div class="col-md">
-                        <div class="form-group">
-                            <label for="full-name">Name <span>*</span></label>
-                            <input type="text" name="name" required placeholder="Enter User Name">
-                            <span class="text-danger">@error('name'){{ $message }} @enderror</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="full-name">Name <span>*</span></label>
+                                <input type="text" name="name" required placeholder="Enter User Name" value="{{ $editUser -> name}}">
+                                <span class="text-danger">@error('name'){{ $message }} @enderror</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="full-name">Email <span>*</span></label>
+                                <input type="text" name="email" required placeholder="Enter User Email" value="{{ $editUser -> email}}">
+                                <span class="text-danger">@error('email'){{ $message }} @enderror</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="full-name">Email <span>*</span></label>
-                                <input type="text" name="email" required placeholder="Enter User Email">
-                                <span class="text-danger">@error('email'){{ $message }} @enderror</span>
+                                <label for="password">Current Password Status</label>
+                                <div class="alert alert-info">
+                                    <i class="fas fa-lock"></i> Password is encrypted and cannot be displayed
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="full-name">Password <span>*</span></label>
-                                <input type="text" name="password" required placeholder="Enter User Password">
+                                <label for="new_password">New Password</label>
+                                <input type="text" name="password" placeholder="Enter new password (optional)" value="">
+                                <small class="text-muted">Leave blank to keep current password</small>
                                 <span class="text-danger">@error('password'){{ $message }} @enderror</span>
                             </div>
                         </div>
@@ -118,7 +129,7 @@
                             <div class="form-group">
                                 <label for="full-name">Region <span>*</span></label>
                                 <select name="region">
-                                    <option value=""> -- Select Region -- </option>
+                                    <option> {{$editUser -> region}} </option>
                                     @foreach ($region as $region)
                                         <option value="{{$region -> region}}"> {{$region -> region}} </option>
                                     @endforeach
@@ -130,14 +141,23 @@
                             <div class="form-group">
                                 <label for="full-name">Role <span>*</span></label>
                                 <select name="role">
-                                    <option> -- Select Role -- </option>
-                                        <option value="regional_admin"> Admin </option>
+                                    <option value="{{$editUser -> role}}"> {{$editUser -> role}} </option>
                                 </select>
                                 <span class="text-danger">@error('role'){{ $message }} @enderror</span>
                             </div>
                         </div>
                     </div>
-                    <input type="text" name="status" value="Active" hidden>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="full-name">Status <span>*</span></label>
+                            <select name="status">
+                                <option value="{{$editUser -> status}}">{{$editUser -> status}}</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                            <span class="text-danger">@error('status'){{ $message }} @enderror</span>
+                        </div>
+                    </div>
                 </fieldset>
                 <div class="card-footer text-right">
                     <button type="submit" style="background-color: #a52a2acc;color: #fff" class="btn">Save</button>

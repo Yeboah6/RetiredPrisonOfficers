@@ -16,7 +16,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-notification">
                         <div class="pro-head">
-                            <span>{{ $data -> email}}</span>
+                            <span>{{ $data -> name}}</span>
                             <a href="/logout" class="dud-logout" title="Logout">
                                 <i class="feather icon-log-out"></i>
                             </a>

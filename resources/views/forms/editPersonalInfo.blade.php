@@ -109,24 +109,23 @@
                         <span class="text-danger">@error('full_name'){{ $message }} @enderror</span>
                     </div>
                     <div class="form-group">
-    <label for="first-name">Upload Picture 
-        @if(!$editPersonalInfo || !$editPersonalInfo->image) 
-            <span>*</span> 
-        @endif
-    </label>
-    <input type="file" name="image" @if(!$editPersonalInfo || !$editPersonalInfo->image) required @endif>
-    <br><br>
-
-    @if($editPersonalInfo && $editPersonalInfo->image)
-        <!-- Show the preview of the uploaded image -->
-        <img src="{{ asset('uploads/Officer-images/' . $editPersonalInfo->image) }}" 
-             style="width:30%;border-radius: 80px;"  
-             alt="Officer Image">
-    @endif
-
-    <span class="text-danger">@error('image'){{ $message }} @enderror</span>
-</div>
-
+                        <label for="first-name">Upload Picture 
+                            @if(!$editPersonalInfo || !$editPersonalInfo->image) 
+                                <span>*</span> 
+                            @endif
+                        </label>
+                        <input type="file" name="image" @if(!$editPersonalInfo || !$editPersonalInfo->image) required @endif>
+                        <br><br>
+                    
+                        @if($editPersonalInfo && $editPersonalInfo->image)
+                            <!-- Show the preview of the uploaded image -->
+                            <img src="{{ asset('uploads/Officer-images/' . $editPersonalInfo->image) }}" 
+                                 style="width:30%;border-radius: 80px;"  
+                                 alt="Officer Image">
+                        @endif
+                    
+                        <span class="text-danger">@error('image'){{ $message }} @enderror</span>
+                    </div>
                     <br>
                     <div class="row">
                         <div class="col-md-6">

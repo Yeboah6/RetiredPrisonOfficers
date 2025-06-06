@@ -55,8 +55,8 @@ class MainController extends Controller
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
 
-         $regions = Districts::all() -> count();
-         $users = SignIn::where('role', 'regional_admin') -> count();
+        $regions = Districts::all() -> count();
+        $users = SignIn::where('role', 'regional_admin') -> count();
 
         $registered = DB::table('personal_infos')
         -> join('professional_infos', 'personal_infos.id', '=', 'professional_infos.personal_id')
@@ -84,9 +84,57 @@ class MainController extends Controller
             $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
         }
 
-        $users = SignIn::all();
+        $users = SignIn::where('id', '!=', 1)->get();
 
         return view('pages.admin.users', compact('data', 'users'));
+    }
+
+    public function editUsers($id) {
+        $data = [];
+        if(Session::has('loginId')) {
+            $data = SignIn::where('id', '=', Session::get('loginId')) -> first();
+        }
+
+        $editUser = SignIn::findOrFail($id);
+        $region = Districts::all();
+
+        return view('pages.admin.edit-user', compact('editUser', 'data', 'region'));
+    }
+
+    public function postEditUsers(Request $request, $id) {
+        $validatedData = $request -> validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'nullable|min:8|max:12',
+            'region' => 'required|string',
+            'role' => 'required|string',
+            'status' => 'required|string'
+        ]);
+
+        $editUser = SignIn::findOrFail($id);
+
+        $editUser -> fill([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'region' => $validatedData['region'],
+            'role' => $validatedData['role'],
+            'status' => $validatedData['status'],
+        ]);
+
+        // Only update password if provided
+        if ($request -> filled('password')) {
+            $editUser -> password = Hash::make($request -> password);
+        }
+
+        $editUser -> update();
+        return redirect('/super-admin/users') -> with('success', 'User Data Updated Successfully');
+    }
+
+    public function deleteUsers($id) {
+        $deleteUser = SignIn::findOrFail($id);
+
+        $deleteUser -> delete();
+        return redirect('/super-admin/users') -> with('success', 'User Data Deleted Successfully');
     }
 
     public function addUsers() {
@@ -102,6 +150,7 @@ class MainController extends Controller
 
     public function postAddUsers(Request $request) {
         $validatedData = $request -> validate([
+            'name' => 'required|string|unique:sign_ins',
             'email' => 'required|email|unique:sign_ins',
             'password' => 'required|min:8|max:12',
             'region' => 'required|string',
@@ -112,6 +161,7 @@ class MainController extends Controller
         $addUser = new SignIn();
 
         $addUser -> fill([
+            'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'region' => $validatedData['region'],
@@ -137,6 +187,7 @@ class MainController extends Controller
     $logs = DB::table('user_login_logs')
         ->join('sign_ins', 'user_login_logs.user_id', '=', 'sign_ins.id')
         ->select(
+            'sign_ins.name',
             'sign_ins.email',
             'sign_ins.role',
             'user_login_logs.login_time',
@@ -285,7 +336,7 @@ class MainController extends Controller
     
         if ($request->input('status') === "Approved") {
             $personalInfo = PersonalInfo::findOrFail($id);
-            Mail::to($personalInfo->email)->send(new SendMail($personalInfo));
+            // Mail::to($personalInfo->email)->send(new SendMail($personalInfo));
             return redirect('/officers')->with('success', 'Officer approved and email sent successfully.');
         }
     

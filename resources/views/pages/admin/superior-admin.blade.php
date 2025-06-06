@@ -19,12 +19,18 @@
                             <br>
                         </div>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="/super-admin/dashboard">Dashboard</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+        @if (Session::has('success'))
+                <div class="alert alert-success" style="text-align: center;">{{ Session::get('success') }}</div>
+            @endif
+            @if (Session::has('fail'))
+                <div class="alert alert-danger" style="text-align: center;">{{ Session::get('fail') }}</div>
+            @endif
         <!-- [ breadcrumb ] end -->
         <!-- [ Main Content ] start -->
         <div class="row">

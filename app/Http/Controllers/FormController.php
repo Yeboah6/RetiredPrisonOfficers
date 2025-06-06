@@ -282,6 +282,7 @@ class FormController extends Controller
             'present_occupation' => 'max:255',
             'next_of_kin' => 'required|string',
             'member_signature' => 'nullable|string|max:255',
+            'added_by' => 'required|string|max:255'
         ]);
 
         $others = new Others();
@@ -291,6 +292,7 @@ class FormController extends Controller
             'present_occupation' => $validatedData['present_occupation'],
             'next_of_kin' => $validatedData['next_of_kin'],
             'member_signature' => $validatedData['member_signature'],
+            'added_by' => $validatedData['added_by'],
         ]);
         
         $others -> status = "Submitted";
@@ -325,6 +327,7 @@ class FormController extends Controller
             'present_occupation' => 'max:255',
             'next_of_kin' => 'required|string',
             'member_signature' => 'nullable|string|max:255',
+            'added_by' => 'required|string|max:255',
         ]);
 
         $editOther = Others::findOrFail($id);
@@ -334,6 +337,7 @@ class FormController extends Controller
             'present_occupation' => $validatedData['present_occupation'],
             'next_of_kin' => $validatedData['next_of_kin'],
             'member_signature' => $validatedData['member_signature'],
+            'added_by' => $validatedData['added_by']
         ]);
 
         $editOther -> update();

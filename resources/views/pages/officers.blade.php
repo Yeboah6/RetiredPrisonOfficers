@@ -53,7 +53,7 @@
                                         <th>Gov't Pension No</th>
                                         <th>Gender</th>
                                         <th>Prison SVC No</th>
-                                        <th>Residential Address</th>
+                                        <th>Added By</th>
                                         <th>Status</th>
                                         <th>Options</th>
                                     </tr>
@@ -69,7 +69,7 @@
                                         <td>{{ $officer -> govt_pension_no}}</td>
                                         <td>{{ $officer -> sex}}</td>
                                         <td>{{ $officer -> prison_svc_no}}</td>
-                                        <td>{{ $officer -> residential_address}}</td>
+                                        <td>{{ $officer -> added_by}}</td>
                                         @if ($officer -> status == "Submitted")
                                             <td style="text-align: center"><span style="background-color: #008B9C;color:#fff;padding:8px;border-radius:50px;font-size:12px;text-align:center">{{ $officer -> status}}</span></td>
                                         @elseif ($officer -> status == "Pending")

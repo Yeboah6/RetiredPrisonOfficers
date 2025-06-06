@@ -23,6 +23,9 @@ Route::middleware(['role:super_admin'])->group(function () {
     Route::get('/super-admin/users', [MainController::class, 'manageUsers']);
     Route::get('/super-admin/add-users', [MainController::class, 'addUsers']);
     Route::post('/super-admin/add-users', [MainController::class, 'postAddUsers']) -> name('add.user');
+    Route::get('/super-admin/edit-users/{id}', [MainController::class, 'editUsers']);
+    Route::post('/super-admin/edit-users/{id}', [MainController::class, 'postEditUsers']) -> name('edit.user');
+    Route::get('/super-admin/delete-user/{id}', [MainController::class, 'deleteUsers']);
 });
 
 Route::get('/region', [MainController::class, 'region']) -> name('region') -> middleware('isLoggedIn');

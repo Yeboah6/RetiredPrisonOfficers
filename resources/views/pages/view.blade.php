@@ -43,7 +43,7 @@
                         
                         <h3 style="text-align:center">{{ $viewOfficer -> reg_id }}</h3>
                         <div style="text-align:center">
-                         <img src="{{ asset('../uploads/Officer-images/'.$viewOfficer -> image) }}" alt="Officer_image" style="border-radius:30px;width:20%;">
+                            <img src="{{ asset('../uploads/Officer-images/'.$viewOfficer -> image) }}" alt="Officer_image" style="border-radius:30px;width:20%;">
                         </div>
                        
                         <div class="card-body">
@@ -148,8 +148,11 @@
                                     <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> repoag_no}}</p>
                                 </div>
                             </div>
-                            
-
+                            <hr>
+                            <div class="col-md-4 col-xs-12 invoice-client-info">
+                                <label for="" style="font-weight: bold; font-size:1rem">Added By: </label>
+                                <p class="m-0" style="font-size: 1rem;">{{ $viewOfficer -> added_by}}</p>
+                            </div>
                         </div>
                     </div>
                     @endforeach

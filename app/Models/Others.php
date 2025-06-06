@@ -13,6 +13,7 @@ class Others extends Model
         'present_occupation',
         'next_of_kin',
         'member_signature',
+        'added_by',
         'secretary',
         'chairman',
         'treasury',

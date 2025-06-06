@@ -129,16 +129,6 @@
                         @endif
                         <span class="text-danger">@error('image'){{ $message }}@enderror</span>
                     </div>
-                    {{-- <div class="form-group">
-                        <label for="first-name">Upload Picture <span>*</span></label>
-                            <input type="file" name="image" required value="{{'uploads/Officer-images/' . $approveOfficer -> image}}">
-                            <br><br>
-                        @if($approveOfficer && $approveOfficer -> image)
-                            <!-- Show the preview of the uploaded image -->
-                            <img src="{{ asset('uploads/Officer-images/' . $approveOfficer -> image) }}" style="width:30%;border-radius: 80px;"  alt="Officer Image">
-                        @endif
-                        <span class="text-danger">@error('image'){{ $message }} @enderror</span>
-                    </div> --}}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -248,9 +238,8 @@
                         </div>
                     </div>
 
-<br>
-<hr>
-<label style="text-align:center;color:red;">Professional Information</label>
+<br><hr>
+                    <label style="text-align:center;color:red;">Professional Information</label>
 <hr>
 
                     <div class="row">
@@ -327,6 +316,11 @@
                         <label for="full-name">Member Signature <span>*</span></label>
                         <input type="text" name="member_signature" required placeholder="Enter Member Signature" value="{{ $approveOfficer -> member_signature}}">
                         <span class="text-danger">@error('member_signature'){{ $message }} @enderror</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="full-name">Added By <span>*</span></label>
+                        <input type="text" name="added_by" required value="{{$data -> name}}" readonly>
+                        <span class="text-danger">@error('added_by'){{ $message }} @enderror</span>
                     </div>
                     
 <br>

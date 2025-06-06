@@ -118,6 +118,11 @@
                         <input type="text" name="member_signature" required placeholder="Enter Full Name as Signature" value="{{ $editOther -> member_signature}}">
                         <span class="text-danger">@error('member_signature'){{ $message }} @enderror</span>
                     </div>
+                    <div class="form-group">
+                        <label for="full-name">Added By <span>*</span></label>
+                        <input type="text" name="added_by" required value="{{$data -> name}}" readonly>
+                        <span class="text-danger">@error('added_by'){{ $message }} @enderror</span>
+                    </div>
                 </fieldset>
 
                 <div class="card-footer text-right">

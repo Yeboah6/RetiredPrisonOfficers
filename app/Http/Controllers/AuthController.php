@@ -26,7 +26,7 @@ class AuthController extends Controller
         $user = SignIn::where('email', '=', $request -> email) -> first();
         if($user) {
              // Check if account is active
-            if($user->status !== 'active') {
+            if($user->status !== 'Active') {
                 return back()->with('fail', 'Your account is inactive. Please contact administrator!');
             }
 
